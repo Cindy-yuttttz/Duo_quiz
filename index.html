@@ -7,12 +7,12 @@
 <meta name="description" content="9道真实场景题，测出你的英语口语人格，并领取适合你的多邻国学习模块。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="多儿出警｜英语口语人格测试">
-<meta property="og:description" content="多儿正在检测你的口语人格：This One型、Sorry逃跑型、翻译外援型，还是社交牛蛙型？">
+<meta property="og:description" content="多儿正在检测你的口语人格：This One型、Sorry逃跑型、翻译外援型，还是社交牛人型？">
 <meta property="og:url" content="https://cindy-yuttttz.github.io/Duo_quiz/">
 <meta property="og:image" content="https://cindy-yuttttz.github.io/Duo_quiz/duo-expr/cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="多儿出警｜英语口语人格测试">
-<meta name="twitter:description" content="多儿正在检测你的口语人格：This One型、Sorry逃跑型、翻译外援型，还是社交牛蛙型？">
+<meta name="twitter:description" content="多儿正在检测你的口语人格：This One型、Sorry逃跑型、翻译外援型，还是社交牛人型？">
 <meta name="twitter:image" content="https://cindy-yuttttz.github.io/Duo_quiz/duo-expr/cover.jpg">
 <link rel="preload" as="image" href="duo-expr/cover.jpg">
 <style>
@@ -114,26 +114,26 @@
     margin: 0 auto 12px; max-width: 330px;
   }
   .hero-panel {
-    position: relative; min-height: 196px; margin: 8px 0 12px;
-    display: flex; align-items: center; justify-content: center;
+    position: relative; min-height: 228px; margin: 8px 0 12px; padding-top: 42px;
+    display: flex; align-items: flex-end; justify-content: center;
   }
   .hero-panel::before {
-    content: ""; position: absolute; inset: 28px 20px 18px;
+    content: ""; position: absolute; inset: 64px 20px 18px;
     border: 2px solid #D7F3C4; border-radius: 22px;
     background:
       linear-gradient(transparent 0 16px, rgba(88,204,2,0.08) 16px 18px) 0 0 / 100% 18px,
       #F7FFF0;
   }
   .hero-area {
-    position: relative; width: 158px; height: 168px; z-index: 2;
+    position: relative; width: 172px; height: 174px; z-index: 2;
     display: flex; align-items: flex-end; justify-content: center;
   }
   .hero-area img {
-    width: 146px; height: auto; animation: duoFloat 2.1s ease-in-out infinite;
+    width: 154px; height: auto; animation: duoFloat 2.1s ease-in-out infinite;
     filter: drop-shadow(0 12px 18px rgba(70,163,2,0.22));
   }
   .siren-top {
-    position: absolute; top: 8px; right: 33px; z-index: 3;
+    position: absolute; top: 106px; right: 12px; z-index: 4;
     width: 34px; height: 26px; border-radius: 10px 10px 6px 6px;
     background: linear-gradient(180deg, #FF7575, var(--red));
     border: 3px solid #fff; box-shadow: 0 4px 0 rgba(191,48,48,0.36), 0 0 22px rgba(255,75,75,0.42);
@@ -144,10 +144,10 @@
     width: 10px; height: 10px; border-radius: 50%; background: #fff; opacity: 0.8;
   }
   .siren-top .light { display: none; }
-  @keyframes sirenJolt { 0%,100%{transform:rotate(-4deg)} 50%{transform:rotate(5deg)} }
+  @keyframes sirenJolt { 0%,100%{transform:rotate(10deg)} 50%{transform:rotate(17deg)} }
   @keyframes duoFloat { 0%,100%{transform:translateY(0) rotate(-1deg)} 50%{transform:translateY(-8px) rotate(1deg)} }
   .scan-card {
-    position: absolute; left: 0; top: 18px; z-index: 3; width: 140px;
+    position: absolute; left: 0; top: 82px; z-index: 3; width: 136px;
     text-align: left; background: #fff; border: 2px solid #E5E5E5; border-radius: 16px;
     padding: 10px 11px; box-shadow: 0 4px 0 #D8D8D8;
     animation: cardFloat 3.2s ease-in-out infinite;
@@ -157,14 +157,14 @@
   .scan-meter { height: 8px; border-radius: 99px; background: #EEF1EA; margin-top: 8px; overflow: hidden; }
   .scan-meter span { display: block; width: 68%; height: 100%; background: linear-gradient(90deg, var(--green), var(--yellow)); animation: meterMove 1.8s ease-in-out infinite; }
   .speech-chip {
-    position: absolute; right: 0; bottom: 28px; z-index: 3; width: 150px;
+    position: absolute; right: 2px; top: 36px; z-index: 4; width: 176px;
     background: #2F2F2F; color: #fff; border-radius: 18px; padding: 10px 12px;
     font-size: 12px; line-height: 1.35; font-weight: 800; text-align: left;
     box-shadow: 0 4px 0 rgba(0,0,0,0.18);
-    animation: cardFloat 3.4s ease-in-out infinite 0.2s;
+    animation: speechFloat 3.4s ease-in-out infinite 0.2s;
   }
   .speech-chip::after {
-    content: ""; position: absolute; left: 24px; bottom: -8px;
+    content: ""; position: absolute; left: 34px; bottom: -8px;
     width: 14px; height: 14px; background: #2F2F2F; transform: rotate(45deg);
   }
   .persona-strip {
@@ -177,6 +177,7 @@
   }
   .persona-pill span { font-size: 18px; line-height: 1; margin-bottom: 4px; }
   @keyframes cardFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+  @keyframes speechFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
   @keyframes meterMove { 0%,100%{width:52%} 50%{width:86%} }
   .btn-start {
     display: flex; align-items: center; justify-content: center; gap: 8px;
@@ -188,7 +189,10 @@
     font-family: inherit; position: relative; z-index: 3;
   }
   .btn-start:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--green-dark), 0 6px 12px rgba(70,163,2,0.18); }
-  .start-footnote { color: #777; font-size: 12px; font-weight: 700; line-height: 1.4; margin-top: 10px; }
+  .start-footnote {
+    color: #777; font-size: 12px; font-weight: 700; line-height: 1.4; margin-top: 10px;
+    white-space: nowrap; letter-spacing: 0;
+  }
 
   /* 页面入口动画 */
   .enter-fade { animation: enterFade 0.8s ease-out both; }
@@ -384,16 +388,22 @@
   @keyframes fadeIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
   .slide-in { animation: slideIn 0.3s ease-out; }
   @keyframes slideIn { from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:translateX(0)} }
-  @media (max-width:380px) {
+  @media (max-width:430px) {
     #screen-start { padding: 12px 12px 18px; }
     .start-shell { gap: 10px; }
     .start-card { padding: 15px 14px 17px; border-radius: 24px; }
     .start-title { font-size: 29px; }
-    .hero-panel { min-height: 190px; }
-    .hero-area { width: 148px; height: 164px; }
-    .hero-area img { width: 138px; }
-    .scan-card { width: 124px; }
-    .speech-chip { width: 132px; font-size: 11px; }
+    .hero-panel { min-height: 218px; padding-top: 42px; }
+    .hero-panel::before { inset: 66px 10px 14px; }
+    .hero-area { width: 160px; height: 166px; }
+    .hero-area img { width: 146px; }
+    .siren-top { top: 102px; right: 7px; width: 31px; height: 24px; }
+    .scan-card { left: -2px; top: 84px; width: 118px; padding: 8px 9px; }
+    .scan-card .label { font-size: 9px; }
+    .scan-card strong { font-size: 12px; }
+    .speech-chip { right: -3px; top: 38px; width: 154px; font-size: 10.5px; padding: 9px 10px; }
+    .speech-chip::after { left: 28px; }
+    .start-footnote { font-size: 10px; line-height: 1.2; margin-top: 9px; }
     .persona-pill { font-size: 10px; min-height: 54px; }
     .question-text{font-size:17px}
   }
@@ -430,7 +440,7 @@ const DUO = {
     <div class="start-card enter-up">
       <div class="start-eyebrow">口语人格测试 · 多儿亲自监考</div>
       <h1 class="start-title">你的口语<em>人格</em>是哪种？</h1>
-      <p class="start-subtitle">9个真实场景，测出你是 This One 生存型、翻译外援型，还是社交牛蛙型。</p>
+      <p class="start-subtitle">9个真实场景，测出你是 This One 生存型、翻译外援型，还是社交牛人型。</p>
 
       <div class="hero-panel enter-scale">
         <div class="scan-card">
@@ -448,7 +458,7 @@ const DUO = {
       <div class="persona-strip enter-up-2">
         <div class="persona-pill"><span>🍝</span>This One型</div>
         <div class="persona-pill"><span>📱</span>翻译外援型</div>
-        <div class="persona-pill"><span>🗣️</span>社交牛蛙型</div>
+        <div class="persona-pill"><span>🗣️</span>社交牛人型</div>
       </div>
 
       <button class="btn-start enter-up-3" onclick="startQuiz()">
@@ -718,7 +728,7 @@ const RESULTS = [
   },
   {
     min:33, max:36, badgeColor:'#CE82FF',
-    type:'🗣️ 社交牛蛙型人格',
+    type:'🗣️ 社交牛人型人格',
     title:'「先开口再说，语法在后面追。」',
     subtitle:'你敢说、能聊、不怕错。多儿嘴上嫌你吵，心里已经给你加星了。',
     level:'Level 5',
@@ -741,7 +751,7 @@ const RESULTS = [
       '练习地道表达和语调，让英语更自然',
       '多邻国APP进阶模块适合你继续升级'
     ],
-    share:'我的英语口语人格是🗣️社交牛蛙型：先开口再说，语法在后面追💪'
+    share:'我的英语口语人格是🗣️社交牛人型：先开口再说，语法在后面追💪'
   }
 ];
 
