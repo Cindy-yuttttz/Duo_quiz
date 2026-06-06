@@ -3,192 +3,192 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>多儿出警｜你是哪种开口困难户？</title>
+<title>多儿出警｜英语口语人格测试</title>
+<meta name="description" content="9道真实场景题，测出你的英语口语人格，并领取适合你的多邻国学习模块。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="多儿出警｜英语口语人格测试">
+<meta property="og:description" content="多儿正在检测你的口语人格：This One型、Sorry逃跑型、翻译外援型，还是社交牛蛙型？">
+<meta property="og:url" content="https://cindy-yutttz.github.io/Duo_quiz/">
+<meta property="og:image" content="https://cindy-yutttz.github.io/Duo_quiz/duo-expr/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="多儿出警｜英语口语人格测试">
+<meta name="twitter:description" content="多儿正在检测你的口语人格：This One型、Sorry逃跑型、翻译外援型，还是社交牛蛙型？">
+<meta name="twitter:image" content="https://cindy-yutttz.github.io/Duo_quiz/duo-expr/cover.jpg">
+<link rel="preload" as="image" href="duo-expr/cover.jpg">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
     --green: #58CC02; --green-dark: #46A302; --green-light: #89E219;
-    --bg: #F0F5F0; --card: #FFFFFF; --text: #3C3C3C; --text-light: #777;
-    --orange: #FF9600; --red: #FF4B4B; --blue: #1CB0F6;
-    --radius: 16px;
+    --bg: #F6FAF1; --card: #FFFFFF; --text: #3C3C3C; --text-light: #777;
+    --orange: #FF9600; --red: #FF4B4B; --blue: #1CB0F6; --yellow: #FFC800;
+    --line: #E5E5E5; --radius: 16px;
   }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans SC', sans-serif;
-    background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden;
+    background:
+      linear-gradient(180deg, #F8FFF0 0%, #EFF8EA 42%, #F6FAF1 100%);
+    color: var(--text); min-height: 100vh; overflow-x: hidden;
   }
   .duo-wrap { display: flex; align-items: center; justify-content: center; }
   .duo-wrap svg { max-width: 100%; height: auto; display: block; }
 
-  /* ===== START - H5元素化封面 ===== */
+  /* ===== START - 口语人格测试封面 ===== */
   #screen-start {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    min-height: 100vh; padding: 32px 20px; text-align: center;
-    position: relative; overflow: hidden;
-    background: radial-gradient(ellipse 140% 70% at 50% 30%, #89E219 0%, #58CC02 35%, #46A302 55%, #2B7A00 100%);
-  }
-  /* DUOLINGO 水印背景字 */
-  #screen-start .watermark {
-    position: absolute;
-    font-size: 120px; font-weight: 900; color: rgba(255,255,255,0.06);
-    letter-spacing: 8px; top: 12%; left: -20%; right: -20%; text-align: center;
-    transform: rotate(-8deg); pointer-events: none; user-select: none;
-    font-family: Arial, sans-serif; z-index: 0;
-  }
-  /* 背景光束 */
-  #screen-start .beam { position: absolute; pointer-events: none; z-index: 0; }
-  #screen-start .beam-1 {
-    top: -10%; left: 5%; width: 35%; height: 60%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 90%);
-    transform: skewX(-12deg); animation: beamPulse 3s ease-in-out infinite;
-  }
-  #screen-start .beam-2 {
-    top: -5%; right: 10%; width: 25%; height: 50%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 80%);
-    transform: skewX(15deg); animation: beamPulse 3s ease-in-out infinite 1s;
-  }
-  @keyframes beamPulse { 0%,100%{opacity:0.6} 50%{opacity:1} }
-  /* 顶部品牌条 */
-  #screen-start .brand-bar {
-    position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
-    display: flex; align-items: center; gap: 6px;
-    color: rgba(255,255,255,0.7); font-size: 11px; font-weight: 600;
-    letter-spacing: 1px; z-index: 5; white-space: nowrap;
-  }
-  #screen-start .brand-bar .duo-icon {
-    width: 16px; height: 16px; background: #58CC02; border-radius: 50%;
-    display: inline-block; position: relative;
-  }
-  #screen-start .brand-bar .duo-icon::after {
-    content: ''; position: absolute; top: 4px; left: 4px;
-    width: 8px; height: 8px; background: white; border-radius: 50%;
-  }
-  #screen-start .brand-bar .siren-mini {
-    display: inline-block; width: 10px; height: 10px;
-    background: #FF3B30; border-radius: 2px; margin-left: 2px;
-    animation: sirenFlash 0.8s ease-in-out infinite;
-    vertical-align: middle;
-  }
-  @keyframes sirenFlash { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  #screen-start .brand-bar .x { color: rgba(255,255,255,0.35); margin: 0 2px; }
-
-  /* 多儿主视觉区 */
-  #screen-start .hero-area {
-    position: relative; z-index: 3; margin-top: 20px;
-    width: 200px; height: 240px;
-  }
-  #screen-start .hero-area img {
-    width: 200px; height: auto;
-    animation: duoFloat 2.5s ease-in-out infinite;
-    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.15));
-  }
-  /* 头顶警灯 */
-  #screen-start .siren-top {
-    position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
-    width: 36px; height: 36px; z-index: 4;
-  }
-  #screen-start .siren-top .light {
-    width: 100%; height: 100%; border-radius: 50%;
-    background: radial-gradient(circle at 50% 50%, #FF453A, #FF3B30);
-    animation: sirenSpin 1.2s linear infinite;
-    box-shadow: 0 0 20px rgba(255,59,48,0.6), 0 0 40px rgba(255,59,48,0.3);
-  }
-  #screen-start .siren-top .light-inner {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-    width: 14px; height: 14px; border-radius: 50%;
-    background: #fff; opacity: 0.7;
-    animation: sirenPulse 0.6s ease-in-out infinite alternate;
-  }
-  @keyframes sirenSpin { 0%{transform:rotate(0deg) scale(1)} 50%{transform:rotate(180deg) scale(1.1)} 100%{transform:rotate(360deg) scale(1)} }
-  @keyframes sirenPulse { from{opacity:0.3;transform:translate(-50%,-50%) scale(0.8)} to{opacity:1;transform:translate(-50%,-50%) scale(1.2)} }
-  @keyframes duoFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-
-  /* 周围浮动小图标 */
-  #screen-start .float-icons { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
-  #screen-start .float-icon {
-    position: absolute; width: 38px; height: 38px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 16px; color: white; font-weight: 700;
-    animation: iconFloat 3s ease-in-out infinite;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    min-height: 100vh; min-height: 100svh; padding: 18px 18px 24px; text-align: center;
+    position: relative; overflow: hidden;
+    background:
+      linear-gradient(135deg, rgba(88,204,2,0.16) 0 25%, transparent 25% 50%, rgba(28,176,246,0.12) 50% 75%, transparent 75%) 0 0 / 42px 42px,
+      linear-gradient(180deg, #ECFFD8 0%, #F8FFF0 48%, #E9F7FF 100%);
   }
-  #screen-start .float-icon:nth-child(1) { top: 8%; left: 8%; background: #5BC0F0; animation-delay: 0s; }
-  #screen-start .float-icon:nth-child(2) { top: 5%; right: 10%; background: #AF52DE; animation-delay: 0.4s; }
-  #screen-start .float-icon:nth-child(3) { top: 50%; left: 2%; background: #FF9500; animation-delay: 0.8s; }
-  #screen-start .float-icon:nth-child(4) { top: 48%; right: 2%; background: #5AC8FA; animation-delay: 1.2s; }
-  #screen-start .float-icon:nth-child(5) { bottom: 38%; left: 5%; background: #34C759; animation-delay: 0.2s; }
-  #screen-start .float-icon:nth-child(6) { bottom: 35%; right: 6%; background: #FF2D55; animation-delay: 0.6s; }
-  #screen-start .float-icon:nth-child(7) { top: 25%; right: 3%; background: #FFD60A; animation-delay: 1s; }
-  #screen-start .float-icon:nth-child(8) { bottom: 30%; left: 10%; background: #FF9500; animation-delay: 1.4s; }
-  @keyframes iconFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-
-  /* 标题区域 */
-  #screen-start .title-area { position: relative; z-index: 3; margin: 8px 0 0; }
-  #screen-start .title-area h1 {
-    font-size: 38px; font-weight: 900; color: #fff; margin: 0; line-height: 1.1;
-    text-shadow: -2px -2px 0 rgba(0,51,0,0.3), 2px -2px 0 rgba(0,51,0,0.3),
-                 -2px 2px 0 rgba(0,51,0,0.3), 2px 2px 0 rgba(0,51,0,0.3),
-                 0 4px 8px rgba(0,0,0,0.15);
-    letter-spacing: 2px;
+  #screen-start::before {
+    content: ""; position: absolute; inset: 0; z-index: 0;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.36)),
+      linear-gradient(90deg, transparent 0 47%, rgba(88,204,2,0.12) 47% 53%, transparent 53% 100%);
+    opacity: 0.9;
   }
-  #screen-start .title-area h1 .siren-title {
-    display: inline-block; width: 28px; height: 28px;
-    background: #FF3B30; border-radius: 6px;
-    animation: sirenFlash 0.8s ease-in-out infinite;
-    vertical-align: middle; margin: 0 2px;
+  #screen-start::after {
+    content: "ORAL PERSONALITY TEST"; position: absolute; left: 50%; top: 8%;
+    transform: translateX(-50%) rotate(-5deg); z-index: 0; pointer-events: none;
+    color: rgba(70,163,2,0.08); font-size: 56px; font-weight: 900; letter-spacing: 3px;
+    white-space: nowrap;
   }
-  @keyframes titleFadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-
-  /* 副标题横幅 */
-  #screen-start .sub-banner {
-    display: inline-block; margin: 4px auto 14px;
-    padding: 6px 20px; border-radius: 8px;
-    background: rgba(137,226,25,0.35);
-    border: 1px solid rgba(255,255,255,0.2);
-    font-size: 15px; font-weight: 700; color: #fff;
-    letter-spacing: 2px; position: relative; z-index: 3;
-    backdrop-filter: blur(4px);
+  .start-shell {
+    position: relative; z-index: 2; width: min(100%, 430px);
+    display: flex; flex-direction: column; gap: 14px;
   }
-
-  /* 标签行 */
-  #screen-start .badge-row {
-    display: flex; gap: 8px; margin-bottom: 18px;
-    position: relative; z-index: 3;
+  .start-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    color: #4B4B4B; font-size: 12px; font-weight: 800;
   }
-  #screen-start .badge-row .tag {
-    display: flex; align-items: center; gap: 5px;
-    padding: 6px 14px; border-radius: 20px;
-    font-size: 12px; font-weight: 600; color: #fff;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
-    backdrop-filter: blur(4px);
+  .brand-lockup, .start-status {
+    display: inline-flex; align-items: center; gap: 6px; min-width: 0;
+    background: rgba(255,255,255,0.76); border: 2px solid #E5F4D9;
+    border-radius: 999px; padding: 7px 10px;
+    box-shadow: 0 3px 0 rgba(88,204,2,0.16);
   }
-  #screen-start .badge-row .tag .emoji { font-size: 14px; }
-
-  /* 开始按钮 */
+  .duo-dot {
+    width: 18px; height: 18px; border-radius: 6px 6px 9px 9px;
+    background: var(--green); position: relative; display: inline-block;
+  }
+  .duo-dot::before, .duo-dot::after {
+    content: ""; position: absolute; top: 6px; width: 4px; height: 4px;
+    background: #fff; border-radius: 50%;
+  }
+  .duo-dot::before { left: 4px; }
+  .duo-dot::after { right: 4px; }
+  .siren-mini, .siren-btn {
+    display: inline-block; width: 12px; height: 12px; border-radius: 4px;
+    background: var(--red); box-shadow: 0 0 0 3px rgba(255,75,75,0.16);
+    animation: sirenFlash 0.75s ease-in-out infinite;
+  }
+  @keyframes sirenFlash { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.45;transform:scale(0.88)} }
+  .start-card {
+    background: rgba(255,255,255,0.94); border: 2px solid var(--line);
+    border-radius: 28px; padding: 18px 18px 20px;
+    box-shadow: 0 8px 0 #D9E8D0, 0 20px 42px rgba(46,111,0,0.16);
+    overflow: hidden; position: relative;
+  }
+  .start-card::before {
+    content: ""; position: absolute; left: -6%; right: -6%; top: 0; height: 9px;
+    background: repeating-linear-gradient(90deg, var(--green) 0 28px, var(--blue) 28px 56px, var(--orange) 56px 84px, var(--red) 84px 112px);
+  }
+  .start-eyebrow {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 8px;
+    border: 2px solid #D7F3C4; border-radius: 999px; padding: 7px 12px;
+    color: var(--green-dark); background: #F3FFE9; font-size: 12px; font-weight: 900;
+  }
+  .start-title {
+    margin: 12px auto 8px; max-width: 340px;
+    font-size: 32px; line-height: 1.08; font-weight: 900; color: #2F2F2F;
+    letter-spacing: 0;
+  }
+  .start-title em {
+    font-style: normal; color: var(--green-dark);
+    text-decoration: underline; text-decoration-color: #BFF199; text-decoration-thickness: 8px;
+    text-underline-offset: -4px;
+  }
+  .start-subtitle {
+    color: #6F6F6F; font-size: 14px; line-height: 1.55; font-weight: 650;
+    margin: 0 auto 12px; max-width: 330px;
+  }
+  .hero-panel {
+    position: relative; min-height: 196px; margin: 8px 0 12px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-panel::before {
+    content: ""; position: absolute; inset: 28px 20px 18px;
+    border: 2px solid #D7F3C4; border-radius: 22px;
+    background:
+      linear-gradient(transparent 0 16px, rgba(88,204,2,0.08) 16px 18px) 0 0 / 100% 18px,
+      #F7FFF0;
+  }
+  .hero-area {
+    position: relative; width: 158px; height: 168px; z-index: 2;
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  .hero-area img {
+    width: 146px; height: auto; animation: duoFloat 2.1s ease-in-out infinite;
+    filter: drop-shadow(0 12px 18px rgba(70,163,2,0.22));
+  }
+  .siren-top {
+    position: absolute; top: 8px; right: 33px; z-index: 3;
+    width: 34px; height: 26px; border-radius: 10px 10px 6px 6px;
+    background: linear-gradient(180deg, #FF7575, var(--red));
+    border: 3px solid #fff; box-shadow: 0 4px 0 rgba(191,48,48,0.36), 0 0 22px rgba(255,75,75,0.42);
+    animation: sirenJolt 0.8s steps(2,end) infinite;
+  }
+  .siren-top::before {
+    content: ""; position: absolute; left: 50%; top: 5px; transform: translateX(-50%);
+    width: 10px; height: 10px; border-radius: 50%; background: #fff; opacity: 0.8;
+  }
+  .siren-top .light { display: none; }
+  @keyframes sirenJolt { 0%,100%{transform:rotate(-4deg)} 50%{transform:rotate(5deg)} }
+  @keyframes duoFloat { 0%,100%{transform:translateY(0) rotate(-1deg)} 50%{transform:translateY(-8px) rotate(1deg)} }
+  .scan-card {
+    position: absolute; left: 0; top: 18px; z-index: 3; width: 140px;
+    text-align: left; background: #fff; border: 2px solid #E5E5E5; border-radius: 16px;
+    padding: 10px 11px; box-shadow: 0 4px 0 #D8D8D8;
+    animation: cardFloat 3.2s ease-in-out infinite;
+  }
+  .scan-card .label { display: block; color: #777; font-size: 10px; font-weight: 900; margin-bottom: 5px; }
+  .scan-card strong { display: block; color: #3C3C3C; font-size: 14px; line-height: 1.25; }
+  .scan-meter { height: 8px; border-radius: 99px; background: #EEF1EA; margin-top: 8px; overflow: hidden; }
+  .scan-meter span { display: block; width: 68%; height: 100%; background: linear-gradient(90deg, var(--green), var(--yellow)); animation: meterMove 1.8s ease-in-out infinite; }
+  .speech-chip {
+    position: absolute; right: 0; bottom: 28px; z-index: 3; width: 150px;
+    background: #2F2F2F; color: #fff; border-radius: 18px; padding: 10px 12px;
+    font-size: 12px; line-height: 1.35; font-weight: 800; text-align: left;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.18);
+    animation: cardFloat 3.4s ease-in-out infinite 0.2s;
+  }
+  .speech-chip::after {
+    content: ""; position: absolute; left: 24px; bottom: -8px;
+    width: 14px; height: 14px; background: #2F2F2F; transform: rotate(45deg);
+  }
+  .persona-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px;
+  }
+  .persona-pill {
+    min-height: 58px; display: flex; flex-direction: column; justify-content: center;
+    border: 2px solid #E5E5E5; border-radius: 15px; background: #FAFAFA;
+    box-shadow: 0 3px 0 #DFDFDF; color: #4B4B4B; font-size: 11px; font-weight: 850;
+  }
+  .persona-pill span { font-size: 18px; line-height: 1; margin-bottom: 4px; }
+  @keyframes cardFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+  @keyframes meterMove { 0%,100%{width:52%} 50%{width:86%} }
   .btn-start {
     display: flex; align-items: center; justify-content: center; gap: 8px;
-    background: #fff; color: #2B7A00; border: none;
-    padding: 16px 48px; border-radius: 50px;
+    width: 100%; background: var(--green); color: #fff; border: none;
+    padding: 17px 26px; border-radius: 16px;
     font-size: 19px; font-weight: 800; cursor: pointer;
-    box-shadow: 0 4px 0 rgba(0,0,0,0.10), 0 8px 24px rgba(0,0,0,0.10);
+    box-shadow: 0 5px 0 var(--green-dark), 0 12px 22px rgba(70,163,2,0.22);
     transition: all 0.15s; touch-action: manipulation;
     font-family: inherit; position: relative; z-index: 3;
   }
-  .btn-start:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.10); }
-  .btn-start .siren-btn {
-    display: inline-block; width: 18px; height: 18px;
-    background: #FF3B30; border-radius: 4px;
-    animation: sirenFlash 0.8s ease-in-out infinite;
-    vertical-align: middle;
-  }
-  /* 底部音符、闪光 */
-  #screen-start .deco { position: absolute; pointer-events: none; z-index: 1; font-size: 18px; opacity: 0.5; animation: iconFloat 4s ease-in-out infinite; }
-  #screen-start .deco:nth-child(1) { top: 12%; right: 20%; animation-delay: 0.5s; }
-  #screen-start .deco:nth-child(2) { bottom: 20%; left: 15%; animation-delay: 1s; }
-  #screen-start .deco:nth-child(3) { top: 35%; left: 12%; animation-delay: 1.5s; color:#FFD60A; }
-  #screen-start .deco:nth-child(4) { top: 42%; right: 15%; animation-delay: 0.3s; color:#5BC0F0; font-size:14px; }
-  #screen-start .deco:nth-child(5) { bottom: 18%; left: 50%; animation-delay: 0.7s; font-size:12px; color:#FFD60A; }
-  #screen-start .deco:nth-child(6) { bottom: 25%; right: 12%; animation-delay: 0.9s; }
+  .btn-start:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--green-dark), 0 6px 12px rgba(70,163,2,0.18); }
+  .start-footnote { color: #777; font-size: 12px; font-weight: 700; line-height: 1.4; margin-top: 10px; }
 
   /* 页面入口动画 */
   .enter-fade { animation: enterFade 0.8s ease-out both; }
@@ -203,51 +203,62 @@
   @keyframes enterScale { from{opacity:0;transform:scale(0.8)} to{opacity:1;transform:scale(1)} }
 
   /* ===== QUIZ ===== */
-  #screen-quiz { display: none; min-height: 100vh; padding: 20px 16px 100px; }
-  .progress-bar { display: flex; gap: 6px; margin-bottom: 16px; padding: 0 4px; }
-  .progress-dot { flex:1; height:6px; border-radius:3px; background:#E0E6E0; transition:background 0.3s; }
+  #screen-quiz {
+    display: none; min-height: 100vh; padding: 18px 16px 104px;
+    width: min(100%, 460px); margin: 0 auto;
+  }
+  .progress-bar {
+    display: flex; gap: 6px; margin-bottom: 14px; padding: 4px;
+    background: rgba(255,255,255,0.78); border: 2px solid #E5E5E5; border-radius: 999px;
+  }
+  .progress-dot { flex:1; height:8px; border-radius:999px; background:#E6E6E6; transition:background 0.3s; }
   .progress-dot.active { background: var(--green); }
   .progress-dot.done { background: var(--green-light); }
   .duo-status {
-    display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
-    background: var(--card); border-radius: var(--radius); padding: 12px 16px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    display: flex; align-items: center; gap: 14px; margin-bottom: 14px;
+    background: var(--card); border: 2px solid var(--line); border-radius: 20px; padding: 12px 14px;
+    box-shadow: 0 5px 0 #DCDCDC;
   }
   .duo-status .duo-wrap { flex-shrink: 0; width: 60px; }
-  .duo-status .duo-speech { font-size: 14px; line-height: 1.5; color: var(--text-light); }
-  .duo-status .duo-speech strong { color: var(--text); }
+  .duo-status .duo-speech { font-size: 14px; line-height: 1.5; color: var(--text-light); text-align: left; }
+  .duo-status .duo-speech strong { color: var(--text); font-weight: 900; }
   .question-card {
-    background: var(--card); border-radius: var(--radius); padding: 24px 20px 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 12px;
+    background: var(--card); border: 2px solid var(--line); border-radius: 22px; padding: 22px 18px 18px;
+    box-shadow: 0 5px 0 #DCDCDC; margin-bottom: 12px;
   }
-  .q-icon { width: 32px; height: 32px; margin-bottom: 8px; }
-  .question-num { font-size: 12px; font-weight: 600; color: var(--green); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-  .question-text { font-size: 19px; font-weight: 700; line-height: 1.4; margin-bottom: 18px; }
+  .q-icon {
+    width: 42px; height: 42px; margin-bottom: 10px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    background: #F3FFE9; border: 2px solid #D7F3C4; font-size: 22px;
+  }
+  .question-num { font-size: 12px; font-weight: 900; color: var(--green-dark); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .question-text { font-size: 20px; font-weight: 900; line-height: 1.35; margin-bottom: 18px; }
   .options { display: flex; flex-direction: column; gap: 10px; }
   .option-btn {
     display: flex; align-items: center; gap: 12px; width:100%; text-align:left;
-    padding: 13px 16px; border: 2px solid #E8E8E8; border-radius: 12px;
+    padding: 14px 14px; border: 2px solid #E5E5E5; border-radius: 15px;
     background: #FAFAFA; font-size: 15px; line-height: 1.4; color: var(--text);
     cursor: pointer; transition: all 0.15s; touch-action: manipulation; font-family: inherit;
+    box-shadow: 0 3px 0 #DCDCDC;
   }
-  .option-btn:active { transform: scale(0.98); }
-  .option-btn .opt-icon { font-size: 18px; flex-shrink: 0; }
+  .option-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #DCDCDC; }
+  .option-btn .opt-icon { font-size: 18px; flex-shrink: 0; width: 26px; text-align: center; }
   .option-btn .opt-tag {
-    display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 8px;
-    border-radius: 10px; margin-left: auto; flex-shrink: 0;
+    display: inline-block; font-size: 10px; font-weight: 900; padding: 3px 8px;
+    border-radius: 999px; margin-left: auto; flex-shrink: 0;
   }
   .option-btn .opt-tag.tag-worst { background:#FFE0E0; color:#CC0000; }
   .option-btn .opt-tag.tag-bad { background:#FFF0D0; color:#CC8800; }
   .option-btn .opt-tag.tag-ok { background:#E0F0FF; color:#0066CC; }
   .option-btn .opt-tag.tag-best { background:#D0FFD0; color:#008800; }
   .option-btn:hover { border-color: #D0D0D0; }
-  .option-btn.selected { border-color: var(--green); background: #EFFFDB; }
+  .option-btn.selected { border-color: var(--green); background: #EFFFDB; box-shadow: 0 3px 0 var(--green-dark); }
   .btn-next-wrap {
     position: fixed; bottom: 0; left: 0; right: 0; padding: 16px 16px 24px;
     background: linear-gradient(180deg, transparent 0%, var(--bg) 30%); z-index: 10;
   }
   .btn-next {
-    width: 100%; padding: 16px; border: none; border-radius: 14px;
+    display: block; width: min(100%, 428px); margin: 0 auto; padding: 16px; border: none; border-radius: 16px;
     font-size: 18px; font-weight: 700; cursor: pointer; transition: all 0.15s;
     touch-action: manipulation; font-family: inherit;
     background: #D0D0D0; color: #999;
@@ -256,19 +267,46 @@
   .btn-next.active:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--green-dark); }
 
   /* ===== RESULT ===== */
-  #screen-result { display: none; min-height: 100vh; padding: 32px 20px 40px; text-align: center; }
-  .result-header { margin-bottom: 20px; }
-  .result-duo { width: 140px; margin: 0 auto; animation: float 2s ease-in-out infinite; }
+  #screen-result {
+    display: none; min-height: 100vh; padding: 22px 16px 40px; text-align: center;
+    width: min(100%, 460px); margin: 0 auto;
+  }
+  .result-header {
+    margin-bottom: 14px; background: var(--card); border: 2px solid var(--line);
+    border-radius: 26px; padding: 18px 16px 16px; box-shadow: 0 6px 0 #DCDCDC;
+    position: relative; overflow: hidden;
+  }
+  .result-header::before {
+    content: "PERSONALITY REPORT"; position: absolute; left: 50%; top: 12px;
+    transform: translateX(-50%); color: rgba(88,204,2,0.1); font-size: 22px;
+    font-weight: 900; letter-spacing: 1px; white-space: nowrap;
+  }
+  .result-duo { width: 138px; margin: 4px auto 0; animation: duoFloat 2s ease-in-out infinite; position: relative; z-index: 1; }
   .result-type-badge {
-    display: inline-block; padding: 5px 18px; border-radius: 20px;
-    font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px;
+    display: inline-block; padding: 7px 14px; border-radius: 999px;
+    font-size: 13px; font-weight: 900; color: #fff; margin-bottom: 8px;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.12); position: relative; z-index: 1;
   }
-  .result-title { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
-  .result-subtitle { font-size: 15px; color: var(--text-light); margin-bottom: 16px; line-height: 1.5; }
+  .result-title { font-size: 25px; font-weight: 900; margin-bottom: 6px; line-height: 1.25; position: relative; z-index: 1; }
+  .result-subtitle { font-size: 14px; color: var(--text-light); margin-bottom: 0; line-height: 1.55; font-weight: 650; position: relative; z-index: 1; }
   .result-detail {
-    background: var(--card); border-radius: var(--radius); padding: 20px 18px; margin-bottom: 14px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: left;
+    background: transparent; border-radius: var(--radius); margin-bottom: 14px; text-align: left;
   }
+  .report-card, .module-card {
+    background: var(--card); border: 2px solid var(--line); border-radius: 22px;
+    padding: 16px; margin-bottom: 12px; box-shadow: 0 5px 0 #DCDCDC;
+  }
+  .report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .report-metric {
+    background: #FAFAFA; border: 2px solid #EDEDED; border-radius: 16px; padding: 11px;
+  }
+  .report-metric .k { display: block; color: #777; font-size: 11px; font-weight: 900; margin-bottom: 5px; }
+  .report-metric .v { display: block; color: #3C3C3C; font-size: 14px; font-weight: 900; line-height: 1.28; }
+  .module-card { border-color: #D7F3C4; box-shadow: 0 5px 0 #B9E79C; background: #FBFFF7; }
+  .module-title { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 900; color: var(--green-dark); margin-bottom: 8px; }
+  .module-desc { color: #5F6F55; font-size: 13px; line-height: 1.55; font-weight: 650; margin-bottom: 10px; }
+  .module-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  .module-tags span { background: #EFFFDB; color: var(--green-dark); border-radius: 999px; padding: 5px 9px; font-size: 11px; font-weight: 900; }
   .result-detail .dr-section { margin-bottom: 16px; }
   .result-detail .dr-section:last-child { margin-bottom: 0; }
   .result-detail .dr-label {
@@ -280,20 +318,25 @@
     padding: 6px 0; font-size: 14px; line-height: 1.5; border-bottom: 1px solid #F3F3F3;
     padding-left: 20px; position: relative;
   }
+  .result-detail li::before {
+    content: ""; position: absolute; left: 4px; top: 14px; width: 7px; height: 7px;
+    background: var(--green); border-radius: 50%;
+  }
   .result-detail li:last-child { border-bottom: none; }
   .result-detail .duo-quote {
     background: #F8FFF0; border-left: 3px solid var(--green); padding: 10px 14px;
     border-radius: 0 10px 10px 0; margin: 10px 0; font-size: 13px; line-height: 1.6; color: #555;
   }
-  .result-detail .duo-quote::before { content: "多儿说："; font-weight: 700; color: var(--green-dark); display: block; margin-bottom: 4px; }
+  .result-detail .duo-quote::before { content: "多儿判词："; font-weight: 900; color: var(--green-dark); display: block; margin-bottom: 4px; }
   .danger-stars { margin: 10px 0; }
   .star-filled { color: #FFC800; font-size: 20px; letter-spacing: 2px; }
   .star-empty { color: #E0E0E0; font-size: 20px; letter-spacing: 2px; }
   .danger-labels { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
   .danger-labels span { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 8px; }
   .share-text-box {
-    background: #FFF8E0; border: 1px dashed #FFB800; border-radius: 12px;
+    background: #FFF8E0; border: 2px dashed #FFB800; border-radius: 18px;
     padding: 14px 16px; margin-bottom: 14px; font-size: 13px; line-height: 1.6; text-align: left;
+    box-shadow: 0 4px 0 rgba(255,184,0,0.18);
   }
   .share-text-box .label { font-weight: 700; color: #B8860B; font-size: 12px; display: block; margin-bottom: 6px; }
   .share-text-box .share-url { display: block; word-break: break-all; font-size: 11px; color: #999; margin-top: 6px; background: #FFFDF0; padding: 6px 8px; border-radius: 6px; }
@@ -341,7 +384,19 @@
   @keyframes fadeIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
   .slide-in { animation: slideIn 0.3s ease-out; }
   @keyframes slideIn { from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:translateX(0)} }
-  @media (max-width:380px) { #screen-start h1{font-size:24px} .question-text{font-size:17px} }
+  @media (max-width:380px) {
+    #screen-start { padding: 12px 12px 18px; }
+    .start-shell { gap: 10px; }
+    .start-card { padding: 15px 14px 17px; border-radius: 24px; }
+    .start-title { font-size: 29px; }
+    .hero-panel { min-height: 190px; }
+    .hero-area { width: 148px; height: 164px; }
+    .hero-area img { width: 138px; }
+    .scan-card { width: 124px; }
+    .speech-chip { width: 132px; font-size: 11px; }
+    .persona-pill { font-size: 10px; min-height: 54px; }
+    .question-text{font-size:17px}
+  }
 </style>
 </head>
 <body>
@@ -353,71 +408,55 @@
 
 // 多儿图片路径（相对于服务器根目录）
 const DUO = {
-  happy:    '/duo-expr/happy.png',
-  love:     '/duo-expr/love.png',
-  angry:    '/duo-expr/dead.png',
-  cry:      '/duo-expr/sad.png',
-  sing:     '/duo-expr/whistle.png',
-  confused: '/duo-expr/shrug.png',
-  silly:    '/duo-expr/silly.png',
-  serious:  '/duo-expr/serious.png'
+  happy:    'duo-expr/happy.png',
+  love:     'duo-expr/love.png',
+  angry:    'duo-expr/dead.png',
+  cry:      'duo-expr/sad.png',
+  sing:     'duo-expr/whistle.png',
+  confused: 'duo-expr/shrug.png',
+  silly:    'duo-expr/silly.png',
+  serious:  'duo-expr/serious.png'
 };
 </script>
 
-<!-- ===== START - H5元素化封面 ===== -->
+<!-- ===== START - 口语人格测试封面 ===== -->
 <div id="screen-start">
-  <!-- 背景水印 -->
-  <div class="watermark">DUOLINGO</div>
-  <!-- 光束 -->
-  <div class="beam beam-1"></div>
-  <div class="beam beam-2"></div>
-  <!-- 顶部品牌条 -->
-  <div class="brand-bar enter-fade">
-    <span class="duo-icon"></span>
-    <span>duolingo</span>
-    <span class="x">×</span>
-    <span>多邻国出警<span class="siren-mini"></span></span>
-  </div>
-  <!-- 周围浮动小图标 -->
-  <div class="float-icons">
-    <div class="float-icon">🎮</div>
-    <div class="float-icon">📖</div>
-    <div class="float-icon">⭐</div>
-    <div class="float-icon">🎧</div>
-    <div class="float-icon">🎤</div>
-    <div class="float-icon">💊</div>
-    <div class="float-icon">🔄</div>
-    <div class="float-icon">🎯</div>
-  </div>
-  <!-- 装饰音符 -->
-  <div class="deco">♪</div>
-  <div class="deco">♫</div>
-  <div class="deco">✦</div>
-  <div class="deco">✦</div>
-  <div class="deco">♦</div>
-  <div class="deco">♩</div>
-  <!-- 主视觉：多儿 + 警灯 -->
-  <div class="hero-area enter-scale">
-    <div class="siren-top">
-      <div class="light"><div class="light-inner"></div></div>
+  <div class="start-shell">
+    <div class="start-topbar enter-fade">
+      <div class="brand-lockup"><span class="duo-dot"></span><span>duolingo</span></div>
+      <div class="start-status">多儿出警 <span class="siren-mini"></span></div>
     </div>
-    <img id="duoStartImg" src="" alt="多儿">
+
+    <div class="start-card enter-up">
+      <div class="start-eyebrow">口语人格测试 · 多儿亲自监考</div>
+      <h1 class="start-title">你的口语<em>人格</em>是哪种？</h1>
+      <p class="start-subtitle">9个真实场景，测出你是 This One 生存型、翻译外援型，还是社交牛蛙型。</p>
+
+      <div class="hero-panel enter-scale">
+        <div class="scan-card">
+          <span class="label">PERSONA SCAN</span>
+          <strong>开口指数检测中</strong>
+          <div class="scan-meter"><span></span></div>
+        </div>
+        <div class="hero-area">
+          <div class="siren-top"><div class="light"><div class="light-inner"></div></div></div>
+          <img id="duoStartImg" src="" alt="多儿">
+        </div>
+        <div class="speech-chip">别装了。你点餐是不是还在说 this one？</div>
+      </div>
+
+      <div class="persona-strip enter-up-2">
+        <div class="persona-pill"><span>🍝</span>This One型</div>
+        <div class="persona-pill"><span>📱</span>翻译外援型</div>
+        <div class="persona-pill"><span>🗣️</span>社交牛蛙型</div>
+      </div>
+
+      <button class="btn-start enter-up-3" onclick="startQuiz()">
+        开始测试 <span class="siren-btn"></span>
+      </button>
+      <p class="start-footnote enter-up-4">测完生成你的口语人格报告，并推荐适合你的多邻国学习模块。</p>
+    </div>
   </div>
-  <!-- 标题 -->
-  <div class="title-area enter-up">
-    <h1>多儿出警<span class="siren-title"></span></h1>
-  </div>
-  <!-- 副标题 -->
-  <div class="sub-banner enter-up-2">你是哪种开口困难户？</div>
-  <!-- 标签 -->
-  <div class="badge-row enter-up-3">
-    <span class="tag"><span class="emoji">👮</span> 9道题精准定位</span>
-    <span class="tag"><span class="emoji">📋</span> 测完出诊断方案</span>
-  </div>
-  <!-- 按钮 -->
-  <button class="btn-start enter-up-4" onclick="startQuiz()">
-    开始诊断 <span class="siren-btn"></span>
-  </button>
 </div>
 
 <!-- ===== QUIZ ===== -->
@@ -442,21 +481,21 @@ const DUO = {
       <img id="resultDuoImg" src="" alt="多儿" style="width:140px">
     </div>
     <div class="result-type-badge" id="resultBadge">诊断结果</div>
-    <div class="result-title" id="resultTitle">诊断报告</div>
+    <div class="result-title" id="resultTitle">口语人格报告</div>
     <div class="result-subtitle" id="resultSubtitle"></div>
   </div>
   <div class="result-detail fade-in" id="resultDetail"></div>
   <div class="share-text-box fade-in">
-    <span class="label">📋 分享文案（复制后可直接发朋友圈/小红书）</span>
+    <span class="label">多儿已生成你的可分享判决书</span>
     <div id="shareText"></div>
     <div class="share-url" id="shareUrl"></div>
-    <button class="btn-copy" onclick="copyShare()">📋 复制分享文案</button>
+    <button class="btn-copy" onclick="copyShare()">复制人格报告</button>
   </div>
   <div class="btn-group fade-in">
-    <button class="btn-retake" onclick="goMission()">🏋️ 领取你的多儿急救训练任务</button>
-    <button class="btn-retake" onclick="retake()" style="background:var(--bg);border-color:#D0D0D0">🔄 重新测试</button>
+    <button class="btn-retake" onclick="goMission()">让多儿安排我的开练路线</button>
+    <button class="btn-retake" onclick="retake()" style="background:var(--bg);border-color:#D0D0D0">重新接受审问</button>
   </div>
-  <div class="result-footer">多儿开口困难户救助中心 · 多邻国 🦉</div>
+  <div class="result-footer">多儿口语人格实验室 · 多邻国</div>
 </div>
 
 <!-- ===== MISSION ===== -->
@@ -464,37 +503,37 @@ const DUO = {
   <div class="duo-wrap" style="margin-bottom:8px">
     <img id="missionDuoImg" src="" alt="多儿" style="width:100px">
   </div>
-  <h2>领取你的多儿急救训练任务！</h2>
-  <p class="subtitle">选择最需要突破的场景，开始针对性练习！</p>
+  <h2>多儿已经把训练表拍你桌上了</h2>
+  <p class="subtitle">选一个你最容易嘴瓢的场景，先从这里开练。</p>
   <div class="mission-grid">
     <div class="mission-card" onclick="alert('🚧 训练功能开发中，敬请期待！')">
       <div class="mc-icon">🍝</div>
       <div class="mc-title">点餐现场</div>
-      <div class="mc-desc">会点餐，旅行才能吃得好！</div>
+      <div class="mc-desc">别再对着菜单念 this one，多儿听累了。</div>
       <div class="mc-phrases">Could I get… / I'd like…</div>
     </div>
     <div class="mission-card" onclick="alert('🚧 训练功能开发中，敬请期待！')">
       <div class="mc-icon">📍</div>
       <div class="mc-title">问路场景</div>
-      <div class="mc-desc">路不在嘴上，问了才能到！</div>
+      <div class="mc-desc">where 不是万能钥匙，句子要说完整。</div>
       <div class="mc-phrases">Excuse me, how can I get to…</div>
     </div>
     <div class="mission-card" onclick="alert('🚧 训练功能开发中，敬请期待！')">
       <div class="mc-icon">💼</div>
       <div class="mc-title">面试自我介绍</div>
-      <div class="mc-desc">第一印象很重要，大方开口！</div>
+      <div class="mc-desc">简历写得很好，嘴也要跟上。</div>
       <div class="mc-phrases">Let me introduce myself…</div>
     </div>
   </div>
-  <button class="btn-mission" onclick="retake()">🔄 重新测试</button>
+  <button class="btn-mission" onclick="retake()">重新测一次，多儿还没审够</button>
 </div>
 
 <script>
-const QUIZ_URL = 'https://suppliers-shore-prefer-val.trycloudflare.com';
+const QUIZ_URL = 'https://cindy-yutttz.github.io/Duo_quiz/';
 
 // 初始化多儿图片
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('duoStartImg').src = DUO.happy;
+  document.getElementById('duoStartImg').src = DUO.silly;
   document.getElementById('duoMiniImg').src = DUO.serious;
   document.getElementById('resultDuoImg').src = DUO.happy;
   document.getElementById('missionDuoImg').src = DUO.sing;
@@ -558,23 +597,29 @@ const QUESTIONS = [
 ];
 
 const DUO_SPEECHES = [
-  '如实回答第一题！多儿在看着你 👀',
-  '嗯，预料之中。继续问第二题：',
-  '面试题来了，别紧张，多儿给你撑腰！',
-  '上课被点名……懂的都懂。选吧：',
-  '购物场景最真实。你属于哪一种？',
-  '小组讨论环节。多儿很好奇你的表现：',
-  '机场出状况？多儿帮你分析分析：',
-  '被人夸了？看看你怎么接招：',
-  '最后一题！坚持住，马上出结果！'
+  '第一题别装，多儿已经开始扫描你的开口人格。',
+  '嗯，开口系统疑似卡顿。继续接受审问：',
+  '面试现场来了，多儿看看你会不会当场离线。',
+  '课堂点名警报响起。低头是没有用的。',
+  '购物场景最能暴露人格。手机翻译先收起来。',
+  '小组讨论环节，多儿要看你是不是只会点头。',
+  '机场求助现场。只会 help me 的人会被多儿盯住。',
+  '被夸了还傻笑？多儿记录一下。',
+  '最后一题！答完立刻生成你的口语人格报告。'
 ];
 
 const RESULTS = [
   {
     min:9, max:13, badgeColor:'#FF4B4B',
-    type:'🍝 "This One"型选手',
+    type:'🍝 This One生存型人格',
     title:'「菜单看得懂，但嘴张不开。」',
-    subtitle:'点餐只会指图片说"this one"，多儿急得想替你点菜。',
+    subtitle:'点餐只会指图片说"this one"，多儿已经把警灯按烂了。',
+    level:'Level 1',
+    levelText:'生存口语待激活',
+    personaCode:'ORAL-01',
+    module:'基础生存口语模块',
+    moduleDesc:'先别急着背高级表达。你最适合从点餐、购物、问路这些低压高频场景开始，把第一句话练到能自动弹出。',
+    moduleTags:['点餐入门','购物短句','问路求助'],
     stars:4, dangerLabel:'高危', dangerBg:'#FFE0E0', dangerColor:'#CC0000',
     duoExpr:'cry',
     diagnosis:[
@@ -588,13 +633,19 @@ const RESULTS = [
       '每天练习1个生活场景表达（点餐→购物→问路→进阶）',
       '多邻国APP日常场景口语模块，非常适合你入门'
     ],
-    share:'我被多儿诊断为🍝"This One"型开口困难户——菜单看得懂但嘴就是张不开😂 你也来测测你是哪种！'
+    share:'我的英语口语人格是🍝This One生存型：菜单看得懂，嘴巴加载失败😂 你也来测测！'
   },
   {
     min:14, max:18, badgeColor:'#1CB0F6',
-    type:'🏃 "Sorry"逃跑型选手',
+    type:'🏃 Sorry逃跑型人格',
     title:'「遇到英文先道歉，再撤退。」',
     subtitle:'不管听没听懂先"sorry"为敬。多儿在后面追你：别跑啊！',
+    level:'Level 2',
+    levelText:'开口勇气修复中',
+    personaCode:'ORAL-02',
+    module:'低压开口训练模块',
+    moduleDesc:'你的问题不是完全不会，而是一紧张就撤退。先练最短、最安全的求助句，让嘴巴先赢一次。',
+    moduleTags:['短句跟读','问路求助','低压对话'],
     stars:3, dangerLabel:'偏高危', dangerBg:'#FFE0E0', dangerColor:'#CC0000',
     duoExpr:'angry',
     diagnosis:[
@@ -609,13 +660,19 @@ const RESULTS = [
       '每天强迫自己说3句英语，不准先说"sorry"',
       '多邻国APP跟读模块，练到嘴巴比脑子快'
     ],
-    share:'我被多儿诊断为🏃"Sorry"逃跑型——遇到英文先道歉再撤退，是我本人了😅 你也来测测你是哪种！'
+    share:'我的英语口语人格是🏃Sorry逃跑型：遇到英文先道歉再撤退，是我本人了😅'
   },
   {
     min:19, max:27, badgeColor:'#FF9600',
-    type:'📱 翻译软件依赖型选手',
+    type:'📱 翻译外援型人格',
     title:'「没有翻译软件就失去了语言能力。」',
     subtitle:'阅读作文都不差，一开口就要掏手机。多儿准备没收你的翻译软件了！',
+    level:'Level 3',
+    levelText:'输出启动训练中',
+    personaCode:'ORAL-03',
+    module:'场景对话输出模块',
+    moduleDesc:'你有输入基础，但太依赖外援。适合做跟读、复述和场景对话，把脑子里的英语推到嘴边。',
+    moduleTags:['场景对话','无翻译挑战','跟读复述'],
     stars:3, dangerLabel:'中度危险', dangerBg:'#FFF0D0', dangerColor:'#CC8800',
     duoExpr:'silly',
     diagnosis:[
@@ -630,13 +687,19 @@ const RESULTS = [
       '跟读练习：找喜欢的英文视频，跟着读10分钟',
       '多邻国APP口语跟读模块，每天15分钟见效'
     ],
-    share:'我被多儿诊断为📱翻译软件依赖型——没翻译软件就开不了口😂 你也来测测你是哪种！'
+    share:'我的英语口语人格是📱翻译外援型：没有翻译软件就像失去语言能力😂'
   },
   {
     min:28, max:32, badgeColor:'#58CC02',
-    type:'🧠 脑内满分·开口零分型选手',
+    type:'🧠 脑内满分·嘴巴离线型人格',
     title:'「心里会说，嘴上不会说。」',
     subtitle:'词汇量和阅读能力都不错，但一开口就卡壳。多儿说：你就是欠练！',
+    level:'Level 4',
+    levelText:'流利度升级中',
+    personaCode:'ORAL-04',
+    module:'表达流利度进阶模块',
+    moduleDesc:'你已经不是零基础，真正要练的是反应速度和表达稳定性。适合15秒表达、角色扮演和观点输出。',
+    moduleTags:['15秒表达','角色扮演','观点输出'],
     stars:2, dangerLabel:'轻度危险', dangerBg:'#E0F0FF', dangerColor:'#0066CC',
     duoExpr:'confused',
     diagnosis:[
@@ -651,28 +714,34 @@ const RESULTS = [
       '角色扮演：模拟点餐、问路、面试，练到不卡壳为止',
       '多邻国APP场景对话模块，从你怕的场景开始练'
     ],
-    share:'我被多儿诊断为🧠脑内满分·开口零分型——心里都会就是说不出口😤 你也来测测你是哪种！'
+    share:'我的英语口语人格是🧠脑内满分·嘴巴离线型：心里全会，嘴上掉线😤'
   },
   {
-    min:33, max:36, badgeColor:'#FF9600',
-    type:'🌟 "潜力无限"型选手',
-    title:'「敢开口，会表达，还能更好！」',
-    subtitle:'你在大多数场景下都能自如应对！多儿为你骄傲，但不要止步于此～',
+    min:33, max:36, badgeColor:'#CE82FF',
+    type:'🗣️ 社交牛蛙型人格',
+    title:'「先开口再说，语法在后面追。」',
+    subtitle:'你敢说、能聊、不怕错。多儿嘴上嫌你吵，心里已经给你加星了。',
+    level:'Level 5',
+    levelText:'自然表达进阶生',
+    personaCode:'ORAL-05',
+    module:'真实交流进阶模块',
+    moduleDesc:'你已经过了开口关，下一步要练自然度、语调和观点表达。适合进阶讨论、面试表达和无字幕听说。',
+    moduleTags:['自然语调','面试讨论','进阶表达'],
     stars:1, dangerLabel:'低风险 👏', dangerBg:'#D0FFD0', dangerColor:'#008800',
     duoExpr:'love',
     diagnosis:[
-      '你已经突破了"不敢开口"这个最大的心理障碍',
-      '日常英语沟通基本无障碍，能清晰表达自己',
-      '自信是你的最大武器，继续保持！',
-      '唯一的小建议：可以更关注语调和自然度'
+      '你已经突破了"不敢开口"这个最大关卡',
+      '日常英语沟通基本能接住，也敢主动开麦',
+      '不怕错是你的隐藏武器，继续保持',
+      '下一步重点：让表达更自然、更像真实聊天'
     ],
-    quote:'多儿给你点赞👍 你已经是开口困难户中的"康复标兵"了！语言是一辈子的事，保持练习，你还可以更流畅、更地道！',
+    quote:'多儿嘴硬地表示：还行吧，也就比大部分人先开口三秒。继续练自然表达，别只会勇。',
     plan:[
-      '挑战更高难度：看无字幕英文剧、参加英语角',
-      '练习地道表达和语调，让英语更"自然"',
-      '多邻国APP进阶模块适合你进一步提升'
+      '挑战更高难度：无字幕听说、观点表达、开放式讨论',
+      '练习地道表达和语调，让英语更自然',
+      '多邻国APP进阶模块适合你继续升级'
     ],
-    share:'我被多儿诊断为🌟潜力无限型开口困难户——敢开口会表达，还能更好💪 你也来测测你是哪种！'
+    share:'我的英语口语人格是🗣️社交牛蛙型：先开口再说，语法在后面追💪'
   }
 ];
 
@@ -760,19 +829,36 @@ function showResult(){
 
   const stars='★'.repeat(result.stars)+'☆'.repeat(5-result.stars);
   g('resultDetail').innerHTML=`
-    <div class="dr-section">
-      <div class="dr-label" style="background:${result.dangerBg};color:${result.dangerColor}">🩺 诊断结果</div>
-      <div class="danger-stars">危险等级：<span class="star-filled">${stars.replace(/★/g,'★').replace(/☆/g,'☆')}</span></div>
-      <div class="danger-labels"><span style="background:${result.dangerBg};color:${result.dangerColor}">${result.dangerLabel}</span></div>
-      <ul>${result.diagnosis.map(d=>`<li style="padding-left:24px">${d}</li>`).join('')}</ul>
+    <div class="report-card fade-in">
+      <div class="dr-section">
+        <div class="dr-label" style="background:${result.dangerBg};color:${result.dangerColor}">多儿判定档案</div>
+        <div class="report-grid">
+          <div class="report-metric">
+            <span class="k">人格编号</span>
+            <span class="v">${result.personaCode}</span>
+          </div>
+          <div class="report-metric">
+            <span class="k">当前阶段</span>
+            <span class="v">${result.level}｜${result.levelText}</span>
+          </div>
+        </div>
+        <div class="danger-stars">嘴巴阻力：<span class="star-filled">${stars}</span></div>
+        <div class="danger-labels"><span style="background:${result.dangerBg};color:${result.dangerColor}">${result.dangerLabel}</span></div>
+        <ul>${result.diagnosis.map(d=>`<li style="padding-left:24px">${d}</li>`).join('')}</ul>
+      </div>
+      <div class="dr-section">
+        <div class="dr-label" style="background:#E8F5E9;color:#2E7D32">多儿锐评时间</div>
+        <div class="duo-quote">${result.quote}</div>
+      </div>
     </div>
-    <div class="dr-section">
-      <div class="dr-label" style="background:#E8F5E9;color:#2E7D32">🦉 多儿说</div>
-      <div class="duo-quote">${result.quote}</div>
-    </div>
-    <div class="dr-section">
-      <div class="dr-label" style="background:#FFF3E0;color:#E65100">💊 处方建议</div>
-      <ul>${result.plan.map(p=>`<li style="padding-left:24px">${p}</li>`).join('')}</ul>
+    <div class="module-card fade-in">
+      <div class="module-title">多儿指定开练模块：${result.module}</div>
+      <div class="module-desc">${result.moduleDesc}</div>
+      <div class="module-tags">${result.moduleTags.map(t=>`<span>${t}</span>`).join('')}</div>
+      <div class="dr-section" style="margin-top:14px">
+        <div class="dr-label" style="background:#FFF3E0;color:#E65100">多儿拍桌路线</div>
+        <ul>${result.plan.map(p=>`<li style="padding-left:24px">${p}</li>`).join('')}</ul>
+      </div>
     </div>`;
 
   g('shareText').textContent=result.share;
@@ -795,14 +881,14 @@ function copyShare(){
   if(navigator.clipboard){
     navigator.clipboard.writeText(text).then(()=>{
       const btn=document.querySelector('.btn-copy');
-      btn.textContent='✅ 已复制！'; setTimeout(()=>{btn.textContent='📋 复制分享文案'},2000);
+      btn.textContent='已复制！'; setTimeout(()=>{btn.textContent='复制人格报告'},2000);
     });
   } else {
     const ta=document.createElement('textarea');
     ta.value=text; document.body.appendChild(ta);
     ta.select(); document.execCommand('copy'); ta.remove();
     const btn=document.querySelector('.btn-copy');
-    btn.textContent='✅ 已复制！'; setTimeout(()=>{btn.textContent='📋 复制分享文案'},2000);
+    btn.textContent='已复制！'; setTimeout(()=>{btn.textContent='复制人格报告'},2000);
   }
 }
 
