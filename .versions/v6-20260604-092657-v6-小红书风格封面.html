@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>多儿出警｜你是哪种开口困难户？</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --green: #58CC02; --green-dark: #46A302; --green-light: #89E219;
+    --bg: #F0F5F0; --card: #FFFFFF; --text: #3C3C3C; --text-light: #777;
+    --orange: #FF9600; --red: #FF4B4B; --blue: #1CB0F6;
+    --radius: 16px;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans SC', sans-serif;
+    background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden;
+  }
+  .duo-wrap { display: flex; align-items: center; justify-content: center; }
+  .duo-wrap svg { max-width: 100%; height: auto; display: block; }
+
+  /* ===== START - 小红书风格封面 ===== */
+  #screen-start {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 100vh; padding: 32px 24px; text-align: center;
+    background: radial-gradient(ellipse at center 40%, #6EDA0A 0%, #58CC02 35%, #46A302 70%, #2B7A00 100%);
+    position: relative; overflow: hidden;
+  }
+  /* 背景光效 */
+  #screen-start::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(255,255,255,0.08) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  /* 菱形闪光粒子 */
+  .sparkle { position: absolute; width: 8px; height: 8px; background: rgba(255,255,255,0.6); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); pointer-events: none; }
+  .sparkle:nth-child(1) { top: 8%; left: 10%; width: 12px; height: 12px; animation: sparkleFloat 3s ease-in-out infinite; }
+  .sparkle:nth-child(2) { top: 15%; right: 15%; width: 6px; height: 6px; animation: sparkleFloat 2.5s ease-in-out infinite 0.5s; }
+  .sparkle:nth-child(3) { bottom: 25%; left: 8%; width: 10px; height: 10px; animation: sparkleFloat 4s ease-in-out infinite 1s; }
+  .sparkle:nth-child(4) { bottom: 15%; right: 10%; width: 7px; height: 7px; animation: sparkleFloat 3.5s ease-in-out infinite 0.3s; }
+  .sparkle:nth-child(5) { top: 40%; left: 5%; width: 5px; height: 5px; animation: sparkleFloat 2.8s ease-in-out infinite 0.8s; }
+  .sparkle:nth-child(6) { top: 30%; right: 5%; width: 9px; height: 9px; animation: sparkleFloat 3.2s ease-in-out infinite 1.2s; }
+  @keyframes sparkleFloat { 0%,100%{opacity:0.3;transform:scale(0.8) rotate(0deg)} 50%{opacity:1;transform:scale(1.2) rotate(45deg)} }
+  #screen-start .duo-start { animation: float 2s ease-in-out infinite; width: 200px; position: relative; z-index: 1; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  #screen-start h1 {
+    font-size: 36px; font-weight: 900; color: #fff; margin: 6px 0 0;
+    text-shadow: 0 0 0 #fff, 0 0 0 #fff, -2px -2px 0 rgba(0,0,0,0.15), 2px -2px 0 rgba(0,0,0,0.15), -2px 2px 0 rgba(0,0,0,0.15), 2px 2px 0 rgba(0,0,0,0.15);
+    letter-spacing: 2px; position: relative; z-index: 1;
+  }
+  #screen-start .subtitle {
+    font-size: 15px; color: rgba(255,255,255,0.85); margin-bottom: 24px;
+    letter-spacing: 4px; position: relative; z-index: 1;
+  }
+  #screen-start .badge-row { display: flex; gap: 10px; margin-bottom: 20px; position: relative; z-index: 1; }
+  #screen-start .badge { background: rgba(255,255,255,0.15); color: #fff; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.2); }
+  .btn-start {
+    background: #fff; color: #2B7A00; border: none; padding: 16px 56px;
+    border-radius: 50px; font-size: 20px; font-weight: 800; cursor: pointer;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.15); transition: all 0.15s; touch-action: manipulation;
+    font-family: inherit; position: relative; z-index: 1;
+  }
+  .btn-start:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,0.15); }
+  /* 底部光晕 */
+  #screen-start::after {
+    content: ''; position: absolute; bottom: -20%; left: 10%; right: 10%;
+    height: 40%; background: radial-gradient(ellipse at center, rgba(137,226,25,0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ===== QUIZ ===== */
+  #screen-quiz { display: none; min-height: 100vh; padding: 20px 16px 100px; }
+  .progress-bar { display: flex; gap: 6px; margin-bottom: 16px; padding: 0 4px; }
+  .progress-dot { flex:1; height:6px; border-radius:3px; background:#E0E6E0; transition:background 0.3s; }
+  .progress-dot.active { background: var(--green); }
+  .progress-dot.done { background: var(--green-light); }
+  .duo-status {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
+    background: var(--card); border-radius: var(--radius); padding: 12px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .duo-status .duo-wrap { flex-shrink: 0; width: 60px; }
+  .duo-status .duo-speech { font-size: 14px; line-height: 1.5; color: var(--text-light); }
+  .duo-status .duo-speech strong { color: var(--text); }
+  .question-card {
+    background: var(--card); border-radius: var(--radius); padding: 24px 20px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 12px;
+  }
+  .q-icon { width: 32px; height: 32px; margin-bottom: 8px; }
+  .question-num { font-size: 12px; font-weight: 600; color: var(--green); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .question-text { font-size: 19px; font-weight: 700; line-height: 1.4; margin-bottom: 18px; }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option-btn {
+    display: flex; align-items: center; gap: 12px; width:100%; text-align:left;
+    padding: 13px 16px; border: 2px solid #E8E8E8; border-radius: 12px;
+    background: #FAFAFA; font-size: 15px; line-height: 1.4; color: var(--text);
+    cursor: pointer; transition: all 0.15s; touch-action: manipulation; font-family: inherit;
+  }
+  .option-btn:active { transform: scale(0.98); }
+  .option-btn .opt-icon { font-size: 18px; flex-shrink: 0; }
+  .option-btn .opt-tag {
+    display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 8px;
+    border-radius: 10px; margin-left: auto; flex-shrink: 0;
+  }
+  .option-btn .opt-tag.tag-worst { background:#FFE0E0; color:#CC0000; }
+  .option-btn .opt-tag.tag-bad { background:#FFF0D0; color:#CC8800; }
+  .option-btn .opt-tag.tag-ok { background:#E0F0FF; color:#0066CC; }
+  .option-btn .opt-tag.tag-best { background:#D0FFD0; color:#008800; }
+  .option-btn:hover { border-color: #D0D0D0; }
+  .option-btn.selected { border-color: var(--green); background: #EFFFDB; }
+  .btn-next-wrap {
+    position: fixed; bottom: 0; left: 0; right: 0; padding: 16px 16px 24px;
+    background: linear-gradient(180deg, transparent 0%, var(--bg) 30%); z-index: 10;
+  }
+  .btn-next {
+    width: 100%; padding: 16px; border: none; border-radius: 14px;
+    font-size: 18px; font-weight: 700; cursor: pointer; transition: all 0.15s;
+    touch-action: manipulation; font-family: inherit;
+    background: #D0D0D0; color: #999;
+  }
+  .btn-next.active { background: var(--green); color: #fff; box-shadow: 0 4px 0 var(--green-dark); }
+  .btn-next.active:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--green-dark); }
+
+  /* ===== RESULT ===== */
+  #screen-result { display: none; min-height: 100vh; padding: 32px 20px 40px; text-align: center; }
+  .result-header { margin-bottom: 20px; }
+  .result-duo { width: 140px; margin: 0 auto; animation: float 2s ease-in-out infinite; }
+  .result-type-badge {
+    display: inline-block; padding: 5px 18px; border-radius: 20px;
+    font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px;
+  }
+  .result-title { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+  .result-subtitle { font-size: 15px; color: var(--text-light); margin-bottom: 16px; line-height: 1.5; }
+  .result-detail {
+    background: var(--card); border-radius: var(--radius); padding: 20px 18px; margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: left;
+  }
+  .result-detail .dr-section { margin-bottom: 16px; }
+  .result-detail .dr-section:last-child { margin-bottom: 0; }
+  .result-detail .dr-label {
+    display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 12px;
+    border-radius: 10px; margin-bottom: 8px; letter-spacing: 0.5px;
+  }
+  .result-detail ul { list-style: none; padding: 0; }
+  .result-detail li {
+    padding: 6px 0; font-size: 14px; line-height: 1.5; border-bottom: 1px solid #F3F3F3;
+    padding-left: 20px; position: relative;
+  }
+  .result-detail li:last-child { border-bottom: none; }
+  .result-detail .duo-quote {
+    background: #F8FFF0; border-left: 3px solid var(--green); padding: 10px 14px;
+    border-radius: 0 10px 10px 0; margin: 10px 0; font-size: 13px; line-height: 1.6; color: #555;
+  }
+  .result-detail .duo-quote::before { content: "多儿说："; font-weight: 700; color: var(--green-dark); display: block; margin-bottom: 4px; }
+  .danger-stars { margin: 10px 0; }
+  .star-filled { color: #FFC800; font-size: 20px; letter-spacing: 2px; }
+  .star-empty { color: #E0E0E0; font-size: 20px; letter-spacing: 2px; }
+  .danger-labels { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .danger-labels span { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 8px; }
+  .share-text-box {
+    background: #FFF8E0; border: 1px dashed #FFB800; border-radius: 12px;
+    padding: 14px 16px; margin-bottom: 14px; font-size: 13px; line-height: 1.6; text-align: left;
+  }
+  .share-text-box .label { font-weight: 700; color: #B8860B; font-size: 12px; display: block; margin-bottom: 6px; }
+  .share-text-box .share-url { display: block; word-break: break-all; font-size: 11px; color: #999; margin-top: 6px; background: #FFFDF0; padding: 6px 8px; border-radius: 6px; }
+  .btn-copy {
+    background: var(--orange); color: #fff; border: none; padding: 8px 20px;
+    border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; margin-top: 8px; touch-action: manipulation;
+  }
+  .btn-group { display: flex; flex-direction: column; gap: 10px; }
+  .btn-retake {
+    background: var(--card); color: var(--green-dark); border: 2px solid var(--green);
+    padding: 14px; border-radius: 14px; font-size: 16px; font-weight: 700; cursor: pointer;
+    touch-action: manipulation; font-family: inherit;
+  }
+  .btn-retake:active { background: #EFFFDB; }
+  .result-footer { margin-top: 24px; font-size: 12px; color: #BBB; }
+
+  /* ===== MISSION ===== */
+  #screen-mission { display: none; min-height: 100vh; padding: 32px 20px 40px; text-align: center; }
+  #screen-mission h2 { font-size: 22px; font-weight: 800; margin: 8px 0 4px; }
+  #screen-mission .subtitle { font-size: 14px; color: var(--text-light); margin-bottom: 20px; }
+  .mission-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
+  .mission-card {
+    background: var(--card); border-radius: var(--radius); padding: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06); text-align: left;
+    border: 2px solid transparent; cursor: pointer; transition: all 0.15s;
+  }
+  .mission-card:active { border-color: var(--green); background: #EFFFDB; }
+  .mission-card .mc-icon { font-size: 26px; margin-bottom: 2px; }
+  .mission-card .mc-title { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+  .mission-card .mc-desc { font-size: 13px; color: var(--text-light); margin-bottom: 6px; }
+  .mission-card .mc-phrases { font-size: 12px; color: var(--green-dark); background: #EFFFDB; padding: 6px 10px; border-radius: 8px; display: inline-block; }
+  .btn-mission {
+    width: 100%; padding: 16px; border: none; border-radius: 14px;
+    background: var(--green); color: #fff; font-size: 18px; font-weight: 700;
+    cursor: pointer; box-shadow: 0 4px 0 var(--green-dark);
+    font-family: inherit; touch-action: manipulation;
+  }
+  .btn-mission:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--green-dark); }
+
+  /* ===== CONFETTI ===== */
+  .confetti-container { position: fixed; top:0;left:0;right:0;bottom:0; pointer-events:none; overflow:hidden; z-index:100; }
+  .confetti { position:absolute; width:10px;height:10px; border-radius:2px; animation:confetti-fall linear forwards; }
+  @keyframes confetti-fall { 0%{transform:translateY(-20px) rotate(0deg);opacity:1} 100%{transform:translateY(100vh) rotate(720deg);opacity:0} }
+  .fade-in { animation: fadeIn 0.4s ease-out; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+  .slide-in { animation: slideIn 0.3s ease-out; }
+  @keyframes slideIn { from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:translateX(0)} }
+  @media (max-width:380px) { #screen-start h1{font-size:24px} .question-text{font-size:17px} }
+</style>
+</head>
+<body>
+
+<script>
+// ============================================================
+// 多儿图片（从参考图裁剪的8个真实多儿表情）
+// ============================================================
+
+// 多儿图片路径（相对于服务器根目录）
+const DUO = {
+  happy:    '/duo-expr/happy_sm.png',
+  love:     '/duo-expr/love_sm.png',
+  angry:    '/duo-expr/angry_sm.png',
+  cry:      '/duo-expr/cry_sm.png',
+  sing:     '/duo-expr/sing_sm.png',
+  confused: '/duo-expr/confused_sm.png',
+  silly:    '/duo-expr/silly_sm.png',
+  serious:  '/duo-expr/serious_sm.png'
+};
+</script>
+</script>
+
+<!-- ===== START ===== -->
+<div id="screen-start">
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="duo-wrap duo-start">
+    <img id="duoStartImg" src="" alt="多儿" style="width:200px">
+  </div>
+  <h1>多儿出警</h1>
+  <p class="subtitle">开口困难户救助中心</p>
+  <div class="badge-row">
+    <span class="badge">🕵️ 9道题精确定位</span>
+    <span class="badge">📱 测完出诊断方案</span>
+  </div>
+  <button class="btn-start" onclick="startQuiz()">开始诊断 🚨</button>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div id="screen-quiz">
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="duo-status" id="duoStatus">
+    <div class="duo-wrap">
+      <img id="duoMiniImg" src="" alt="多儿" style="width:60px">
+    </div>
+    <div class="duo-speech" id="duoSpeech"><strong>多儿已抵达现场。</strong> 如实回答，别嘴硬。</div>
+  </div>
+  <div id="questionArea"></div>
+  <div class="btn-next-wrap">
+    <button class="btn-next" id="btnNext" onclick="nextQuestion()">继续</button>
+  </div>
+</div>
+
+<!-- ===== RESULT ===== -->
+<div id="screen-result">
+  <div class="result-header fade-in">
+    <div class="duo-wrap result-duo">
+      <img id="resultDuoImg" src="" alt="多儿" style="width:140px">
+    </div>
+    <div class="result-type-badge" id="resultBadge">诊断结果</div>
+    <div class="result-title" id="resultTitle">诊断报告</div>
+    <div class="result-subtitle" id="resultSubtitle"></div>
+  </div>
+  <div class="result-detail fade-in" id="resultDetail"></div>
+  <div class="share-text-box fade-in">
+    <span class="label">📋 分享文案（复制后可直接发朋友圈/小红书）</span>
+    <div id="shareText"></div>
+    <div class="share-url" id="shareUrl"></div>
+    <button class="btn-copy" onclick="copyShare()">📋 复制分享文案</button>
+  </div>
+  <div class="btn-group fade-in">
+    <button class="btn-retake" onclick="goMission()">🏋️ 领取你的多儿急救训练任务</button>
+    <button class="btn-retake" onclick="retake()" style="background:var(--bg);border-color:#D0D0D0">🔄 重新测试</button>
+  </div>
+  <div class="result-footer">多儿开口困难户救助中心 · 多邻国 🦉</div>
+</div>
+
+<!-- ===== MISSION ===== -->
+<div id="screen-mission">
+  <div class="duo-wrap" style="margin-bottom:8px">
+    <img id="missionDuoImg" src="" alt="多儿" style="width:100px">
+  </div>
+  <h2>领取你的多儿急救训练任务！</h2>
+  <p class="subtitle">选择最需要突破的场景，开始针对性练习！</p>
+  <div class="mission-grid">
+    <div class="mission-card" onclick="alert('🚧 训练功能开发中，敬请期待！')">
+      <div class="mc-icon">🍝</div>
+      <div class="mc-title">点餐现场</div>
+      <div class="mc-desc">会点餐，旅行才能吃得好！</div>
+      <div class="mc-phrases">Could I get… / I'd like…</div>
+    </div>
+    <div class="mission-card" onclick="alert('🚧 训练功能开发中，敬请期待！')">
+      <div class="mc-icon">📍</div>
+      <div class="mc-title">问路场景</div>
+      <div class="mc-desc">路不在嘴上，问了才能到！</div>
+      <div class="mc-phrases">Excuse me, how can I get to…</div>
+    </div>
+    <div class="mission-card" onclick="alert('🚧 训练功能开发中，敬请期待！')">
+      <div class="mc-icon">💼</div>
+      <div class="mc-title">面试自我介绍</div>
+      <div class="mc-desc">第一印象很重要，大方开口！</div>
+      <div class="mc-phrases">Let me introduce myself…</div>
+    </div>
+  </div>
+  <button class="btn-mission" onclick="retake()">🔄 重新测试</button>
+</div>
+
+<script>
+const QUIZ_URL = 'https://wiring-resume-delivers-premier.trycloudflare.com';
+
+// 初始化多儿图片
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('duoStartImg').src = DUO.happy;
+  document.getElementById('duoMiniImg').src = DUO.serious;
+  document.getElementById('resultDuoImg').src = DUO.happy;
+  document.getElementById('missionDuoImg').src = DUO.sing;
+});
+
+const QUESTIONS = [
+  { icon:'🗺️', text:'外国人突然向你问路，你的第一反应是？', options:[
+    { icon:'🙈', tag:'躲', tagClass:'tag-worst', text:'假装没听见，低头玩手机', score:1 },
+    { icon:'😅', tag:'懵', tagClass:'tag-bad', text:'愣住，只会说"Sorry…"', score:2 },
+    { icon:'💪', tag:'能', tagClass:'tag-ok', text:'我可以指路，但会磕巴', score:3 },
+    { icon:'🗣️', tag:'强', tagClass:'tag-best', text:'我会直接告诉他怎么走', score:4 }
+  ]},
+  { icon:'🍝', text:'英语点餐时，你最常说的是哪句？', options:[
+    { icon:'👆', tag:'躲', tagClass:'tag-worst', text:'"This one, this one." 指菜单', score:1 },
+    { icon:'🤷', tag:'懵', tagClass:'tag-bad', text:'"Same as her." 指朋友', score:2 },
+    { icon:'😬', tag:'能', tagClass:'tag-ok', text:'我会说"I want this please"', score:3 },
+    { icon:'💬', tag:'强', tagClass:'tag-best', text:'我能用完整句子点餐', score:4 }
+  ]},
+  { icon:'💼', text:'英语面试最让你害怕的是哪个环节？', options:[
+    { icon:'😰', tag:'躲', tagClass:'tag-worst', text:'自我介绍——大脑空白说不', score:1 },
+    { icon:'🤯', tag:'懵', tagClass:'tag-bad', text:'听不懂面试官的问题', score:2 },
+    { icon:'😖', tag:'能', tagClass:'tag-ok', text:'我可以准备，但临场紧张', score:3 },
+    { icon:'🎯', tag:'强', tagClass:'tag-best', text:'我能应对英文面试讨论经历', score:4 }
+  ]},
+  { icon:'📖', text:'上课被老师点名用英语回答，你会？', options:[
+    { icon:'🙈', tag:'躲', tagClass:'tag-worst', text:'低头盯桌面，祈祷被跳过', score:1 },
+    { icon:'😶', tag:'懵', tagClass:'tag-bad', text:'站起来"I think…"然后沉默了', score:2 },
+    { icon:'😤', tag:'能', tagClass:'tag-ok', text:'我能硬着头皮说几句', score:3 },
+    { icon:'💪', tag:'强', tagClass:'tag-best', text:'我能用自己的话回答', score:4 }
+  ]},
+  { icon:'🛍️', text:'在国外购物，店员问话你没听懂，你会？', options:[
+    { icon:'😊', tag:'躲', tagClass:'tag-worst', text:'微笑点头"OK, OK"然后瞎买', score:1 },
+    { icon:'📱', tag:'懵', tagClass:'tag-bad', text:'掏出手机翻译给他看', score:2 },
+    { icon:'🙋', tag:'能', tagClass:'tag-ok', text:'我会说"Sorry, one more time please"', score:3 },
+    { icon:'💬', tag:'强', tagClass:'tag-best', text:'我能用自己的话再确认一遍', score:4 }
+  ]},
+  { icon:'💬', text:'和外国同学小组讨论，你通常？', options:[
+    { icon:'🤐', tag:'躲', tagClass:'tag-worst', text:'全程听不插话', score:1 },
+    { icon:'👍', tag:'懵', tagClass:'tag-bad', text:'只说"I agree"', score:2 },
+    { icon:'😅', tag:'能', tagClass:'tag-ok', text:'我能说一两句但词穷', score:3 },
+    { icon:'🗣️', tag:'强', tagClass:'tag-best', text:'我能表达观点参与讨论', score:4 }
+  ]},
+  { icon:'✈️', text:'在机场值机柜台遇到问题，你会？', options:[
+    { icon:'😶', tag:'躲', tagClass:'tag-worst', text:'沉默期待对方自己解决', score:1 },
+    { icon:'🆘', tag:'懵', tagClass:'tag-bad', text:'只会说"Help me"', score:2 },
+    { icon:'📱', tag:'能', tagClass:'tag-ok', text:'我能用手机翻译说明情况', score:3 },
+    { icon:'💪', tag:'强', tagClass:'tag-best', text:'我能直接用英文沟通解决', score:4 }
+  ]},
+  { icon:'😊', text:'外国人夸你，你的反应是？', options:[
+    { icon:'😳', tag:'躲', tagClass:'tag-worst', text:'不知道怎么回应愣住', score:1 },
+    { icon:'😊', tag:'懵', tagClass:'tag-bad', text:'只会傻笑', score:2 },
+    { icon:'🙏', tag:'能', tagClass:'tag-ok', text:'我会说"Thank you"', score:3 },
+    { icon:'💬', tag:'强', tagClass:'tag-best', text:'我能礼貌回应并自然交流', score:4 }
+  ]},
+  { icon:'🎤', text:'临时被要求用英语做自我介绍，你会？', options:[
+    { icon:'😵', tag:'躲', tagClass:'tag-worst', text:'大脑瞬间空白', score:1 },
+    { icon:'😖', tag:'懵', tagClass:'tag-bad', text:'结结巴巴说不完整', score:2 },
+    { icon:'📝', tag:'能', tagClass:'tag-ok', text:'我能背模板顶过去', score:3 },
+    { icon:'🎯', tag:'强', tagClass:'tag-best', text:'我能自然开场大方介绍', score:4 }
+  ]}
+];
+
+const DUO_SPEECHES = [
+  '如实回答第一题！多儿在看着你 👀',
+  '嗯，预料之中。继续问第二题：',
+  '面试题来了，别紧张，多儿给你撑腰！',
+  '上课被点名……懂的都懂。选吧：',
+  '购物场景最真实。你属于哪一种？',
+  '小组讨论环节。多儿很好奇你的表现：',
+  '机场出状况？多儿帮你分析分析：',
+  '被人夸了？看看你怎么接招：',
+  '最后一题！坚持住，马上出结果！'
+];
+
+const RESULTS = [
+  {
+    min:9, max:13, badgeColor:'#FF4B4B',
+    type:'🍝 "This One"型选手',
+    title:'「菜单看得懂，但嘴张不开。」',
+    subtitle:'点餐只会指图片说"this one"，多儿急得想替你点菜。',
+    stars:4, dangerLabel:'高危', dangerBg:'#FFE0E0', dangerColor:'#CC0000',
+    duoExpr:'cry',
+    diagnosis:[
+      '点餐场景需立即救助',
+      '词汇量其实还行，但开口就卡壳',
+      '最怕服务员追问"How would you like it done?"',
+      '属于"我认得这个词但说不出口"综合征'
+    ],
+    quote:'多儿建议你从今天开始，每天对着镜子练一句点餐英语。先从"Could I get…"开始，不难！',
+    plan:[
+      '每天练习1个生活场景表达（点餐→购物→问路→进阶）',
+      '多邻国APP日常场景口语模块，非常适合你入门'
+    ],
+    share:'我被多儿诊断为🍝"This One"型开口困难户——菜单看得懂但嘴就是张不开😂 你也来测测你是哪种！'
+  },
+  {
+    min:14, max:18, badgeColor:'#1CB0F6',
+    type:'🏃 "Sorry"逃跑型选手',
+    title:'「遇到英文先道歉，再撤退。」',
+    subtitle:'不管听没听懂先"sorry"为敬。多儿在后面追你：别跑啊！',
+    stars:3, dangerLabel:'偏高危', dangerBg:'#FFE0E0', dangerColor:'#CC0000',
+    duoExpr:'angry',
+    diagnosis:[
+      '问题和求助场景最高危，习惯性退缩',
+      '其实你的英语能力比你自己想象的好',
+      '你缺的不是词汇量，是"先说出口"的勇气',
+      '属于"我脑子里已经说完了"型选手'
+    ],
+    quote:'多儿发现你其实会很多，就是不好意思开口。下次想说"sorry"的时候，改成"Let me try"试试？',
+    plan:[
+      '从最短句型开始练习：Excuse me / Could you / I need…',
+      '每天强迫自己说3句英语，不准先说"sorry"',
+      '多邻国APP跟读模块，练到嘴巴比脑子快'
+    ],
+    share:'我被多儿诊断为🏃"Sorry"逃跑型——遇到英文先道歉再撤退，是我本人了😅 你也来测测你是哪种！'
+  },
+  {
+    min:19, max:27, badgeColor:'#FF9600',
+    type:'📱 翻译软件依赖型选手',
+    title:'「没有翻译软件就失去了语言能力。」',
+    subtitle:'阅读作文都不差，一开口就要掏手机。多儿准备没收你的翻译软件了！',
+    stars:3, dangerLabel:'中度危险', dangerBg:'#FFF0D0', dangerColor:'#CC8800',
+    duoExpr:'silly',
+    diagnosis:[
+      '需要建立基础表达自信，你其实会很多',
+      '听得懂看得懂，就是输出环节卡住了',
+      '脑嘴不同步：心里想的是高级词汇，嘴上一句都蹦不出来',
+      '你是典型的"脑内留学生，口中幼儿园"'
+    ],
+    quote:'多儿发现你英语底子不差，就是太依赖那个绿色小图标了。下次先说，再查，错了也比不说强一百倍！',
+    plan:[
+      '每天3句自言自语英语，不准查词典！',
+      '跟读练习：找喜欢的英文视频，跟着读10分钟',
+      '多邻国APP口语跟读模块，每天15分钟见效'
+    ],
+    share:'我被多儿诊断为📱翻译软件依赖型——没翻译软件就开不了口😂 你也来测测你是哪种！'
+  },
+  {
+    min:28, max:32, badgeColor:'#58CC02',
+    type:'🧠 脑内满分·开口零分型选手',
+    title:'「心里会说，嘴上不会说。」',
+    subtitle:'词汇量和阅读能力都不错，但一开口就卡壳。多儿说：你就是欠练！',
+    stars:2, dangerLabel:'轻度危险', dangerBg:'#E0F0FF', dangerColor:'#0066CC',
+    duoExpr:'confused',
+    diagnosis:[
+      '典型开口困难户——不是不会，是不敢',
+      '你的英语笔试成绩应该挺不错的',
+      '但口头表达时，大脑和嘴巴之间存在"延迟"',
+      '最气人的是：你事后复盘时能说得很流畅'
+    ],
+    quote:'多儿很看好你！你底子扎实，差的就是「说」这个动作。每天15秒开口挑战，把脑内的英语"说"出来！',
+    plan:[
+      '每日15秒英语开口挑战：用英语描述你看到的任意东西',
+      '角色扮演：模拟点餐、问路、面试，练到不卡壳为止',
+      '多邻国APP场景对话模块，从你怕的场景开始练'
+    ],
+    share:'我被多儿诊断为🧠脑内满分·开口零分型——心里都会就是说不出口😤 你也来测测你是哪种！'
+  },
+  {
+    min:33, max:36, badgeColor:'#FF9600',
+    type:'🌟 "潜力无限"型选手',
+    title:'「敢开口，会表达，还能更好！」',
+    subtitle:'你在大多数场景下都能自如应对！多儿为你骄傲，但不要止步于此～',
+    stars:1, dangerLabel:'低风险 👏', dangerBg:'#D0FFD0', dangerColor:'#008800',
+    duoExpr:'love',
+    diagnosis:[
+      '你已经突破了"不敢开口"这个最大的心理障碍',
+      '日常英语沟通基本无障碍，能清晰表达自己',
+      '自信是你的最大武器，继续保持！',
+      '唯一的小建议：可以更关注语调和自然度'
+    ],
+    quote:'多儿给你点赞👍 你已经是开口困难户中的"康复标兵"了！语言是一辈子的事，保持练习，你还可以更流畅、更地道！',
+    plan:[
+      '挑战更高难度：看无字幕英文剧、参加英语角',
+      '练习地道表达和语调，让英语更"自然"',
+      '多邻国APP进阶模块适合你进一步提升'
+    ],
+    share:'我被多儿诊断为🌟潜力无限型开口困难户——敢开口会表达，还能更好💪 你也来测测你是哪种！'
+  }
+];
+
+let currentQ=0, answers=[], selectedOption=null;
+
+function g(id){return document.getElementById(id);}
+
+function setDuo(imgId, expr) {
+  const img = g(imgId);
+  if (img && DUO[expr]) img.src = DUO[expr];
+}
+
+function startQuiz(){
+  currentQ=0; answers=[]; selectedOption=null;
+  g('screen-start').style.display='none'; g('screen-quiz').style.display='block';
+  g('duoSpeech').innerHTML='<strong>多儿已抵达现场。</strong> '+DUO_SPEECHES[0];
+  setDuo('duoMiniImg', 'serious');
+  renderProgress(); renderQuestion();
+}
+
+function renderProgress(){
+  const bar=g('progressBar'); bar.innerHTML='';
+  for(let i=0;i<QUESTIONS.length;i++){
+    const d=document.createElement('div');
+    d.className='progress-dot'+(i===currentQ?' active':'')+(i<currentQ?' done':'');
+    bar.appendChild(d);
+  }
+}
+
+function renderQuestion(){
+  const q=QUESTIONS[currentQ]; selectedOption=null;
+  // 9道题用8个表情轮换（每道题不同）
+  const moods = ['serious','angry','confused','silly','cry','sing','serious','love','happy'];
+  setDuo('duoMiniImg', moods[currentQ] || 'confused');
+  g('btnNext').classList.remove('active');
+  g('btnNext').textContent=currentQ<QUESTIONS.length-1?'继续':'看结果 🎯';
+  g('questionArea').innerHTML=`
+    <div class="question-card slide-in">
+      <div class="q-icon">${q.icon}</div>
+      <div class="question-num">问题 ${currentQ+1} / ${QUESTIONS.length}</div>
+      <div class="question-text">${q.text}</div>
+      <div class="options">
+        ${q.options.map((o,i)=>`
+          <button class="option-btn" data-score="${o.score}" onclick="selectOption(this,${o.score})">
+            <span class="opt-icon">${o.icon}</span>
+            <span>${o.text}</span>
+            <span class="opt-tag ${o.tagClass}">${o.tag}</span>
+          </button>
+        `).join('')}
+      </div>
+    </div>`;
+}
+
+function selectOption(el,score){
+  document.querySelectorAll('.option-btn').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected'); selectedOption=score;
+  g('btnNext').classList.add('active');
+}
+
+function nextQuestion(){
+  if(selectedOption===null) return;
+  answers.push(selectedOption);
+  if(currentQ<QUESTIONS.length-1){
+    currentQ++;
+    g('duoSpeech').innerHTML='<strong>多儿已抵达现场。</strong> '+DUO_SPEECHES[currentQ];
+    renderProgress(); renderQuestion();
+    window.scrollTo({top:0,behavior:'smooth'});
+  } else showResult();
+}
+
+function showResult(){
+  const total=answers.reduce((a,b)=>a+b,0);
+  let result=RESULTS[0];
+  for(const r of RESULTS){if(total>=r.min&&total<=r.max){result=r;break;}}
+
+  g('screen-quiz').style.display='none'; g('screen-result').style.display='block';
+  window.scrollTo({top:0});
+
+  setDuo('resultDuoImg', result.duoExpr || 'happy');
+
+  g('resultBadge').textContent=result.type;
+  g('resultBadge').style.background=result.badgeColor;
+  g('resultTitle').textContent=result.title;
+  g('resultSubtitle').textContent=result.subtitle;
+
+  const stars='★'.repeat(result.stars)+'☆'.repeat(5-result.stars);
+  g('resultDetail').innerHTML=`
+    <div class="dr-section">
+      <div class="dr-label" style="background:${result.dangerBg};color:${result.dangerColor}">🩺 诊断结果</div>
+      <div class="danger-stars">危险等级：<span class="star-filled">${stars.replace(/★/g,'★').replace(/☆/g,'☆')}</span></div>
+      <div class="danger-labels"><span style="background:${result.dangerBg};color:${result.dangerColor}">${result.dangerLabel}</span></div>
+      <ul>${result.diagnosis.map(d=>`<li style="padding-left:24px">${d}</li>`).join('')}</ul>
+    </div>
+    <div class="dr-section">
+      <div class="dr-label" style="background:#E8F5E9;color:#2E7D32">🦉 多儿说</div>
+      <div class="duo-quote">${result.quote}</div>
+    </div>
+    <div class="dr-section">
+      <div class="dr-label" style="background:#FFF3E0;color:#E65100">💊 处方建议</div>
+      <ul>${result.plan.map(p=>`<li style="padding-left:24px">${p}</li>`).join('')}</ul>
+    </div>`;
+
+  g('shareText').textContent=result.share;
+  g('shareUrl').textContent='🔗 '+QUIZ_URL;
+  if(result.stars<=2) launchConfetti();
+}
+
+function goMission(){
+  g('screen-result').style.display='none'; g('screen-mission').style.display='block';
+}
+
+function retake(){
+  g('screen-result').style.display='none'; g('screen-mission').style.display='none';
+  currentQ=0; answers=[]; selectedOption=null;
+  g('screen-start').style.display='flex';
+}
+
+function copyShare(){
+  const text=g('shareText').textContent+'\n'+QUIZ_URL;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(text).then(()=>{
+      const btn=document.querySelector('.btn-copy');
+      btn.textContent='✅ 已复制！'; setTimeout(()=>{btn.textContent='📋 复制分享文案'},2000);
+    });
+  } else {
+    const ta=document.createElement('textarea');
+    ta.value=text; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy'); ta.remove();
+    const btn=document.querySelector('.btn-copy');
+    btn.textContent='✅ 已复制！'; setTimeout(()=>{btn.textContent='📋 复制分享文案'},2000);
+  }
+}
+
+function launchConfetti(){
+  const c=document.createElement('div'); c.className='confetti-container'; document.body.appendChild(c);
+  const colors=['#58CC02','#1CB0F6','#FF9600','#FF4B4B','#FFD700','#89E219'];
+  for(let i=0;i<50;i++){
+    const e=document.createElement('div'); e.className='confetti';
+    e.style.left=Math.random()*100+'%'; e.style.background=colors[Math.floor(Math.random()*colors.length)];
+    e.style.width=(Math.random()*8+4)+'px'; e.style.height=(Math.random()*8+4)+'px';
+    e.style.animationDuration=(Math.random()*2+1.5)+'s'; e.style.animationDelay=(Math.random()*1.5)+'s';
+    c.appendChild(e);
+  }
+  setTimeout(()=>c.remove(),4000);
+}
+</script>
+</body>
+</html>
