@@ -8,12 +8,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="多儿出警｜英语口语人格测试">
 <meta property="og:description" content="多儿正在检测你的口语人格：This One型、Sorry逃跑型、翻译外援型，还是社交牛人型？">
-<meta property="og:url" content="https://duo-persona-quiz.vercel.app/">
-<meta property="og:image" content="https://duo-persona-quiz.vercel.app/duo-expr/cover.jpg">
+<meta property="og:url" content="https://vm-0-11-ubuntu.tail2bafa5.ts.net/">
+<meta property="og:image" content="https://vm-0-11-ubuntu.tail2bafa5.ts.net/duo-expr/cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="多儿出警｜英语口语人格测试">
 <meta name="twitter:description" content="多儿正在检测你的口语人格：This One型、Sorry逃跑型、翻译外援型，还是社交牛人型？">
-<meta name="twitter:image" content="https://duo-persona-quiz.vercel.app/duo-expr/cover.jpg">
+<meta name="twitter:image" content="https://vm-0-11-ubuntu.tail2bafa5.ts.net/duo-expr/cover.jpg">
 <link rel="preload" as="image" href="duo-expr/cover.jpg">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -575,7 +575,8 @@ const DUO = {
 </div>
 
 <script>
-const QUIZ_URL = 'https://duo-persona-quiz.vercel.app/';
+const QUIZ_URL = 'https://vm-0-11-ubuntu.tail2bafa5.ts.net/';
+const QR_IMAGE = 'duo-qr.png';
 let latestResult = null;
 let latestTotal = 0;
 
@@ -990,7 +991,7 @@ function drawWrappedText(ctx,text,x,y,maxWidth,lineHeight,maxLines){
   return y+lines.length*lineHeight;
 }
 
-function drawMiniCode(ctx,x,y,size){
+async function drawMiniCode(ctx,x,y,size){
   ctx.save();
   ctx.fillStyle='#fff';
   roundRect(ctx,x,y,size,size,22);
@@ -998,6 +999,13 @@ function drawMiniCode(ctx,x,y,size){
   ctx.strokeStyle='#D7F3C4';
   ctx.lineWidth=6;
   ctx.stroke();
+  try{
+    const qr=await loadPosterImage(QR_IMAGE);
+    const pad=Math.round(size*0.12);
+    ctx.drawImage(qr,x+pad,y+pad,size-pad*2,size-pad*2);
+    ctx.restore();
+    return;
+  } catch(e) {}
   const cell=size/9;
   const blocks=[
     [1,1],[2,1],[1,2],[2,2],[6,1],[7,1],[6,2],[7,2],
@@ -1239,7 +1247,7 @@ async function generatePoster(result,total){
   ctx.strokeStyle='#D7F3C4';
   ctx.lineWidth=4;
   ctx.stroke();
-  drawMiniCode(ctx,124,1268,82);
+  await drawMiniCode(ctx,124,1268,82);
   ctx.fillStyle='#46A302';
   ctx.font='900 30px Arial, sans-serif';
   ctx.fillText('来测测你的英语口语人格',234,1296);
