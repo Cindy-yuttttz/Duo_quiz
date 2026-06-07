@@ -8,12 +8,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="多儿出警｜英语口语人格测试">
 <meta property="og:description" content="多儿正在检测你的口语人格：This One型、Sorry逃跑型、翻译外援型，还是社交牛人型？">
-<meta property="og:url" content="https://cindy-yuttttz.github.io/Duo_quiz/">
-<meta property="og:image" content="https://cindy-yuttttz.github.io/Duo_quiz/duo-expr/cover.jpg">
+<meta property="og:url" content="https://duo-persona-quiz.vercel.app/">
+<meta property="og:image" content="https://duo-persona-quiz.vercel.app/duo-expr/cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="多儿出警｜英语口语人格测试">
 <meta name="twitter:description" content="多儿正在检测你的口语人格：This One型、Sorry逃跑型、翻译外援型，还是社交牛人型？">
-<meta name="twitter:image" content="https://cindy-yuttttz.github.io/Duo_quiz/duo-expr/cover.jpg">
+<meta name="twitter:image" content="https://duo-persona-quiz.vercel.app/duo-expr/cover.jpg">
 <link rel="preload" as="image" href="duo-expr/cover.jpg">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -67,6 +67,9 @@
     background: rgba(255,255,255,0.76); border: 2px solid #E5F4D9;
     border-radius: 999px; padding: 7px 10px;
     box-shadow: 0 3px 0 rgba(88,204,2,0.16);
+  }
+  .brand-word {
+    color: var(--green); font-size: 15px; font-weight: 900; letter-spacing: 0;
   }
   .duo-dot {
     width: 18px; height: 18px; border-radius: 6px 6px 9px 9px;
@@ -344,6 +347,27 @@
   }
   .share-text-box .label { font-weight: 700; color: #B8860B; font-size: 12px; display: block; margin-bottom: 6px; }
   .share-text-box .share-url { display: block; word-break: break-all; font-size: 11px; color: #999; margin-top: 6px; background: #FFFDF0; padding: 6px 8px; border-radius: 6px; }
+  .poster-card {
+    background: #FFFFFF; border: 2px solid #D7F3C4; border-radius: 22px;
+    padding: 15px; margin-bottom: 14px; text-align: left;
+    box-shadow: 0 5px 0 #B9E79C;
+  }
+  .poster-card .label { display: block; color: var(--green-dark); font-size: 12px; font-weight: 900; margin-bottom: 8px; }
+  .poster-card .poster-tip { color: #6F6F6F; font-size: 12px; line-height: 1.5; margin-bottom: 10px; font-weight: 650; }
+  .poster-preview {
+    border: 2px solid #E5E5E5; border-radius: 18px; overflow: hidden; background: #F6FAF1;
+    min-height: 210px; display: flex; align-items: center; justify-content: center;
+  }
+  .poster-preview img { display: block; width: 100%; height: auto; }
+  .poster-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+  .btn-poster {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 40px; border: none; border-radius: 14px; padding: 10px 12px;
+    font-size: 13px; line-height: 1.2; font-weight: 800; color: #fff; background: var(--green);
+    text-decoration: none; font-family: inherit; box-shadow: 0 3px 0 var(--green-dark);
+  }
+  .btn-poster.secondary { background: var(--orange); box-shadow: 0 3px 0 #CC7800; }
+  #posterCanvas { display: none; }
   .btn-copy {
     background: var(--orange); color: #fff; border: none; padding: 8px 20px;
     border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; margin-top: 8px; touch-action: manipulation;
@@ -433,7 +457,7 @@ const DUO = {
 <div id="screen-start">
   <div class="start-shell">
     <div class="start-topbar enter-fade">
-      <div class="brand-lockup"><span class="duo-dot"></span><span>duolingo</span></div>
+      <div class="brand-lockup"><span class="duo-dot"></span><span class="brand-word">Duolingo</span></div>
       <div class="start-status">多儿出警 <span class="siren-mini"></span></div>
     </div>
 
@@ -501,6 +525,18 @@ const DUO = {
     <div class="share-url" id="shareUrl"></div>
     <button class="btn-copy" onclick="copyShare()">复制人格报告</button>
   </div>
+  <div class="poster-card fade-in">
+    <span class="label">多儿已生成你的分享海报</span>
+    <div class="poster-tip">可长按海报保存图片，也可以点下载。海报会同步你的口语人格和推荐模块。</div>
+    <div class="poster-preview">
+      <img id="posterImg" alt="口语人格分享海报">
+    </div>
+    <div class="poster-actions">
+      <button class="btn-poster" onclick="regeneratePoster()">重新生成海报</button>
+      <a class="btn-poster secondary" id="posterDownload" download="duo-oral-persona-poster.png">下载海报</a>
+    </div>
+    <canvas id="posterCanvas" width="900" height="1400"></canvas>
+  </div>
   <div class="btn-group fade-in">
     <button class="btn-retake" onclick="goMission()">让多儿安排我的开练路线</button>
     <button class="btn-retake" onclick="retake()" style="background:var(--bg);border-color:#D0D0D0">重新接受审问</button>
@@ -539,7 +575,9 @@ const DUO = {
 </div>
 
 <script>
-const QUIZ_URL = 'https://cindy-yuttttz.github.io/Duo_quiz/';
+const QUIZ_URL = 'https://duo-persona-quiz.vercel.app/';
+let latestResult = null;
+let latestTotal = 0;
 
 // 初始化多儿图片
 document.addEventListener('DOMContentLoaded', () => {
@@ -643,7 +681,7 @@ const RESULTS = [
       '每天练习1个生活场景表达（点餐→购物→问路→进阶）',
       '多邻国APP日常场景口语模块，非常适合你入门'
     ],
-    share:'我的英语口语人格是🍝This One生存型：菜单看得懂，嘴巴加载失败😂 你也来测测！'
+    share:'我的英语口语人格是 This One 生存型：菜单看得懂，嘴巴加载失败。你也来测测！'
   },
   {
     min:14, max:18, badgeColor:'#1CB0F6',
@@ -670,7 +708,7 @@ const RESULTS = [
       '每天强迫自己说3句英语，不准先说"sorry"',
       '多邻国APP跟读模块，练到嘴巴比脑子快'
     ],
-    share:'我的英语口语人格是🏃Sorry逃跑型：遇到英文先道歉再撤退，是我本人了😅'
+    share:'我的英语口语人格是 Sorry 逃跑型：遇到英文先道歉再撤退，是我本人了。'
   },
   {
     min:19, max:27, badgeColor:'#FF9600',
@@ -697,7 +735,7 @@ const RESULTS = [
       '跟读练习：找喜欢的英文视频，跟着读10分钟',
       '多邻国APP口语跟读模块，每天15分钟见效'
     ],
-    share:'我的英语口语人格是📱翻译外援型：没有翻译软件就像失去语言能力😂'
+    share:'我的英语口语人格是翻译外援型：没有翻译软件就像失去语言能力。'
   },
   {
     min:28, max:32, badgeColor:'#58CC02',
@@ -724,7 +762,7 @@ const RESULTS = [
       '角色扮演：模拟点餐、问路、面试，练到不卡壳为止',
       '多邻国APP场景对话模块，从你怕的场景开始练'
     ],
-    share:'我的英语口语人格是🧠脑内满分·嘴巴离线型：心里全会，嘴上掉线😤'
+    share:'我的英语口语人格是脑内满分·嘴巴离线型：心里全会，嘴上掉线。'
   },
   {
     min:33, max:36, badgeColor:'#CE82FF',
@@ -751,7 +789,7 @@ const RESULTS = [
       '练习地道表达和语调，让英语更自然',
       '多邻国APP进阶模块适合你继续升级'
     ],
-    share:'我的英语口语人格是🗣️社交牛人型：先开口再说，语法在后面追💪'
+    share:'我的英语口语人格是社交牛人型：先开口再说，语法在后面追。'
   }
 ];
 
@@ -826,6 +864,8 @@ function showResult(){
   const total=answers.reduce((a,b)=>a+b,0);
   let result=RESULTS[0];
   for(const r of RESULTS){if(total>=r.min&&total<=r.max){result=r;break;}}
+  latestResult = result;
+  latestTotal = total;
 
   g('screen-quiz').style.display='none'; g('screen-result').style.display='block';
   window.scrollTo({top:0});
@@ -873,6 +913,9 @@ function showResult(){
 
   g('shareText').textContent=result.share;
   g('shareUrl').textContent='🔗 '+QUIZ_URL;
+  g('posterImg').removeAttribute('src');
+  g('posterDownload').removeAttribute('href');
+  setTimeout(()=>generatePoster(result,total),80);
   if(result.stars<=2) launchConfetti();
 }
 
@@ -900,6 +943,320 @@ function copyShare(){
     const btn=document.querySelector('.btn-copy');
     btn.textContent='已复制！'; setTimeout(()=>{btn.textContent='复制人格报告'},2000);
   }
+}
+
+function loadPosterImage(src){
+  return new Promise((resolve,reject)=>{
+    const img=new Image();
+    img.onload=()=>resolve(img);
+    img.onerror=reject;
+    img.src=src;
+  });
+}
+
+function roundRect(ctx,x,y,w,h,r){
+  const radius=Math.min(r,w/2,h/2);
+  ctx.beginPath();
+  ctx.moveTo(x+radius,y);
+  ctx.arcTo(x+w,y,x+w,y+h,radius);
+  ctx.arcTo(x+w,y+h,x,y+h,radius);
+  ctx.arcTo(x,y+h,x,y,radius);
+  ctx.arcTo(x,y,x+w,y,radius);
+  ctx.closePath();
+}
+
+function drawWrappedText(ctx,text,x,y,maxWidth,lineHeight,maxLines){
+  const source=String(text || '');
+  const chars=[...source];
+  let line='', lines=[];
+  for(const ch of chars){
+    const test=line+ch;
+    if(ctx.measureText(test).width>maxWidth && line){
+      lines.push(line);
+      line=ch;
+      if(maxLines && lines.length===maxLines) break;
+    } else {
+      line=test;
+    }
+  }
+  if(!maxLines || lines.length<maxLines) lines.push(line);
+  if(maxLines && lines.length>maxLines) lines=lines.slice(0,maxLines);
+  if(maxLines && lines.length===maxLines && chars.join('').length>lines.join('').length){
+    let last=lines[lines.length-1];
+    while(ctx.measureText(last+'…').width>maxWidth && last.length>0) last=last.slice(0,-1);
+    lines[lines.length-1]=last+'…';
+  }
+  lines.forEach((lineText,index)=>ctx.fillText(lineText,x,y+index*lineHeight));
+  return y+lines.length*lineHeight;
+}
+
+function drawMiniCode(ctx,x,y,size){
+  ctx.save();
+  ctx.fillStyle='#fff';
+  roundRect(ctx,x,y,size,size,22);
+  ctx.fill();
+  ctx.strokeStyle='#D7F3C4';
+  ctx.lineWidth=6;
+  ctx.stroke();
+  const cell=size/9;
+  const blocks=[
+    [1,1],[2,1],[1,2],[2,2],[6,1],[7,1],[6,2],[7,2],
+    [1,6],[2,6],[1,7],[2,7],[4,1],[4,3],[5,4],[7,5],
+    [3,5],[5,6],[4,7],[7,7],[3,2],[6,4],[2,4],[5,2]
+  ];
+  ctx.fillStyle='#58CC02';
+  blocks.forEach(([cx,cy])=>{
+    roundRect(ctx,x+cx*cell,y+cy*cell,cell*0.72,cell*0.72,3);
+    ctx.fill();
+  });
+  ctx.restore();
+}
+
+const POSTER_STYLES = {
+  'ORAL-01': {
+    name:'This One 生存型', mode:'SURVIVAL MODE', stamp:'MOUTH LOADING',
+    accent:'#FF4B4B', soft:'#FFF0F0', panel:'#FFF8F8',
+    headline:'菜单看得懂，嘴张不开',
+    chip:'口语急救档案',
+    bubble:'this one 警报响起，多儿建议先练第一句话。',
+    route:'从点餐、购物、问路这些低压场景开始救嘴。'
+  },
+  'ORAL-02': {
+    name:'Sorry 逃跑型', mode:'ESCAPE MODE', stamp:'DO NOT RUN',
+    accent:'#1CB0F6', soft:'#EAF7FF', panel:'#F6FCFF',
+    headline:'遇到英文先道歉，再撤退',
+    chip:'低压修复档案',
+    bubble:'别跑，多儿追得上。先把 sorry 换成 let me try。',
+    route:'先练最短求助句，让嘴巴赢一次。'
+  },
+  'ORAL-03': {
+    name:'翻译外援型', mode:'TRANSLATOR DEPENDENT', stamp:'NO OUTSIDE HELP',
+    accent:'#FF9600', soft:'#FFF4E2', panel:'#FFFBF2',
+    headline:'没有翻译软件就失语',
+    chip:'外援断电档案',
+    bubble:'手机先放下，嘴巴才是今天的主角。',
+    route:'用跟读、复述和场景对话，把英语推到嘴边。'
+  },
+  'ORAL-04': {
+    name:'脑内满分·嘴巴离线型', mode:'BRAIN FULL / MOUTH OFFLINE', stamp:'OUTPUT START',
+    accent:'#58CC02', soft:'#EFFFDB', panel:'#FBFFF7',
+    headline:'心里全会，嘴上掉线',
+    chip:'输出启动档案',
+    bubble:'多儿很看好你：别只在脑内拿满分。',
+    route:'练反应速度和表达稳定性，把脑内英语说出来。'
+  },
+  'ORAL-05': {
+    name:'社交牛人型', mode:'SOCIAL SPEAKER', stamp:'ON AIR',
+    accent:'#CE82FF', soft:'#F7ECFF', panel:'#FEFAFF',
+    headline:'先开口再说，语法在后面追',
+    chip:'高能开麦档案',
+    bubble:'多儿嘴上嫌你吵，心里已经给你加星。',
+    route:'继续练自然语调、观点表达和真实交流。'
+  }
+};
+
+function getPosterStyle(result){
+  return POSTER_STYLES[result.personaCode] || POSTER_STYLES['ORAL-03'];
+}
+
+async function generatePoster(result,total){
+  const canvas=g('posterCanvas');
+  if(!canvas || !result) return;
+  const poster=getPosterStyle(result);
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  const bg=ctx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,poster.soft);
+  bg.addColorStop(0.52,'#FFFFFF');
+  bg.addColorStop(1,'#EAF8FF');
+  ctx.fillStyle=bg;
+  ctx.fillRect(0,0,W,H);
+
+  ctx.save();
+  ctx.globalAlpha=0.12;
+  ctx.fillStyle=poster.accent;
+  for(let i=-H;i<W;i+=78){
+    ctx.fillRect(i,0,28,H);
+  }
+  ctx.restore();
+
+  ctx.fillStyle='rgba(88,204,2,0.07)';
+  ctx.font='900 72px Arial, sans-serif';
+  ctx.fillText(poster.mode,58,136);
+
+  roundRect(ctx,52,62,W-104,H-76,42);
+  ctx.fillStyle='rgba(255,255,255,0.94)';
+  ctx.fill();
+  ctx.strokeStyle='#D7F3C4';
+  ctx.lineWidth=6;
+  ctx.stroke();
+
+  const rail=['#58CC02','#1CB0F6','#FF9600','#FF4B4B'];
+  let railX=52, railIndex=0;
+  while(railX<W-52){
+    ctx.fillStyle=rail[railIndex%rail.length];
+    ctx.fillRect(railX,62,Math.min(40,W-52-railX),18);
+    railX+=40;
+    railIndex++;
+  }
+
+  ctx.fillStyle='#58CC02';
+  roundRect(ctx,98,112,220,58,29);
+  ctx.fill();
+  ctx.fillStyle='#fff';
+  ctx.font='900 28px Arial, sans-serif';
+  ctx.fillText('Duolingo',150,151);
+  ctx.beginPath();
+  ctx.arc(124,141,17,0,Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle='#58CC02';
+  ctx.beginPath(); ctx.arc(118,138,4,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(130,138,4,0,Math.PI*2); ctx.fill();
+
+  ctx.fillStyle='#3C3C3C';
+  ctx.font='900 40px Arial, sans-serif';
+  ctx.fillText('多儿出警',618,150);
+  ctx.fillStyle='#FF4B4B';
+  roundRect(ctx,792,120,34,34,10);
+  ctx.fill();
+
+  ctx.fillStyle=poster.accent;
+  roundRect(ctx,98,216,210,56,28);
+  ctx.fill();
+  ctx.fillStyle='#fff';
+  ctx.font='900 30px Arial, sans-serif';
+  ctx.fillText(result.personaCode,134,254);
+
+  ctx.fillStyle='#46A302';
+  ctx.font='900 32px Arial, sans-serif';
+  ctx.fillText('英语口语人格判决书',98,328);
+
+  ctx.fillStyle='#2F2F2F';
+  ctx.font='900 62px Arial, sans-serif';
+  let y=drawWrappedText(ctx,poster.name,98,408,470,72,2);
+
+  ctx.fillStyle=poster.accent;
+  ctx.font='900 38px Arial, sans-serif';
+  y=drawWrappedText(ctx,poster.headline,98,y+16,470,50,2);
+
+  ctx.fillStyle='rgba(60,60,60,0.08)';
+  ctx.font='900 58px Arial, sans-serif';
+  ctx.fillText(poster.stamp,98,606);
+
+  const duoSrc=DUO[result.duoExpr] || DUO.happy;
+  try{
+    const duo=await loadPosterImage(duoSrc);
+    ctx.save();
+    ctx.shadowColor='rgba(70,163,2,0.22)';
+    ctx.shadowBlur=28;
+    ctx.shadowOffsetY=18;
+    const box=270;
+    const ratio=Math.min(box/duo.width,box/duo.height);
+    const dw=duo.width*ratio,dh=duo.height*ratio;
+    ctx.drawImage(duo,560+(box-dw)/2,355+(box-dh)/2,dw,dh);
+    ctx.restore();
+  } catch(e) {}
+
+  roundRect(ctx,562,292,270,104,24);
+  ctx.fillStyle='#2F2F2F';
+  ctx.fill();
+  ctx.fillStyle='#FFFFFF';
+  ctx.font='900 24px Arial, sans-serif';
+  drawWrappedText(ctx,poster.bubble,586,330,222,32,2);
+  ctx.beginPath();
+  ctx.moveTo(636,396);
+  ctx.lineTo(664,396);
+  ctx.lineTo(646,426);
+  ctx.closePath();
+  ctx.fillStyle='#2F2F2F';
+  ctx.fill();
+
+  roundRect(ctx,98,658,704,246,30);
+  ctx.fillStyle=poster.panel;
+  ctx.fill();
+  ctx.strokeStyle='#D7F3C4';
+  ctx.lineWidth=4;
+  ctx.stroke();
+
+  ctx.fillStyle=poster.accent;
+  roundRect(ctx,126,692,172,44,22);
+  ctx.fill();
+  ctx.fillStyle='#fff';
+  ctx.font='900 24px Arial, sans-serif';
+  ctx.fillText(poster.chip,146,723);
+
+  ctx.fillStyle='#3C3C3C';
+  ctx.font='900 34px Arial, sans-serif';
+  ctx.fillText(`${result.level}｜${result.levelText}`,126,786);
+  ctx.fillStyle='#5F6F55';
+  ctx.font='800 27px Arial, sans-serif';
+  drawWrappedText(ctx,result.subtitle,126,838,620,42,3);
+
+  roundRect(ctx,98,934,704,208,30);
+  ctx.fillStyle='#FFFFFF';
+  ctx.fill();
+  ctx.strokeStyle='#E5E5E5';
+  ctx.lineWidth=4;
+  ctx.stroke();
+  ctx.fillStyle='#46A302';
+  ctx.font='900 32px Arial, sans-serif';
+  ctx.fillText(`多儿指定开练模块：${result.module}`,126,990);
+  ctx.fillStyle='#5F6F55';
+  ctx.font='800 27px Arial, sans-serif';
+  drawWrappedText(ctx,poster.route,126,1036,620,38,2);
+  let tagX=126, tagY=1110;
+  ctx.font='900 23px Arial, sans-serif';
+  result.moduleTags.forEach(tag=>{
+    const tw=ctx.measureText(tag).width+34;
+    ctx.fillStyle='#EFFFDB';
+    roundRect(ctx,tagX,tagY-28,tw,42,21);
+    ctx.fill();
+    ctx.fillStyle='#46A302';
+    ctx.fillText(tag,tagX+17,tagY);
+    tagX+=tw+14;
+  });
+
+  roundRect(ctx,98,1168,704,72,24);
+  ctx.fillStyle='#FFF8E0';
+  ctx.fill();
+  ctx.strokeStyle='#FFB800';
+  ctx.setLineDash([12,10]);
+  ctx.lineWidth=4;
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='#B8860B';
+  ctx.font='900 24px Arial, sans-serif';
+  ctx.fillText('多儿锐评',126,1212);
+  ctx.fillStyle='#3C3C3C';
+  ctx.font='800 23px Arial, sans-serif';
+  drawWrappedText(ctx,result.quote,238,1212,520,30,1);
+
+  roundRect(ctx,98,1248,704,130,28);
+  ctx.fillStyle='#F8FFF0';
+  ctx.fill();
+  ctx.strokeStyle='#D7F3C4';
+  ctx.lineWidth=4;
+  ctx.stroke();
+  drawMiniCode(ctx,124,1268,82);
+  ctx.fillStyle='#46A302';
+  ctx.font='900 30px Arial, sans-serif';
+  ctx.fillText('来测测你的英语口语人格',234,1296);
+  ctx.fillStyle='#777';
+  ctx.font='800 22px Arial, sans-serif';
+  drawWrappedText(ctx,QUIZ_URL,234,1334,500,30,1);
+  ctx.fillStyle='#999';
+  ctx.font='700 20px Arial, sans-serif';
+  ctx.fillText(`总分 ${total}/36 · 多儿口语人格实验室`,234,1364);
+
+  const dataUrl=canvas.toDataURL('image/png');
+  g('posterImg').src=dataUrl;
+  g('posterDownload').href=dataUrl;
+}
+
+function regeneratePoster(){
+  if(latestResult) generatePoster(latestResult,latestTotal);
 }
 
 function launchConfetti(){
