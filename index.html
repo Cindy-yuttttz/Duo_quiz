@@ -1001,8 +1001,11 @@ async function drawMiniCode(ctx,x,y,size){
   ctx.stroke();
   try{
     const qr=await loadPosterImage(QR_IMAGE);
-    const pad=Math.round(size*0.12);
+    const pad=Math.round(size*0.06);
+    const wasSmoothing=ctx.imageSmoothingEnabled;
+    ctx.imageSmoothingEnabled=false;
     ctx.drawImage(qr,x+pad,y+pad,size-pad*2,size-pad*2);
+    ctx.imageSmoothingEnabled=wasSmoothing;
     ctx.restore();
     return;
   } catch(e) {}
@@ -1247,16 +1250,16 @@ async function generatePoster(result,total){
   ctx.strokeStyle='#D7F3C4';
   ctx.lineWidth=4;
   ctx.stroke();
-  await drawMiniCode(ctx,124,1268,82);
+  await drawMiniCode(ctx,124,1258,108);
   ctx.fillStyle='#46A302';
   ctx.font='900 30px Arial, sans-serif';
-  ctx.fillText('来测测你的英语口语人格',234,1296);
+  ctx.fillText('来测测你的英语口语人格',256,1296);
   ctx.fillStyle='#777';
   ctx.font='800 22px Arial, sans-serif';
-  drawWrappedText(ctx,QUIZ_URL,234,1334,500,30,1);
+  drawWrappedText(ctx,QUIZ_URL,256,1334,480,30,1);
   ctx.fillStyle='#999';
   ctx.font='700 20px Arial, sans-serif';
-  ctx.fillText(`总分 ${total}/36 · 多儿口语人格实验室`,234,1364);
+  ctx.fillText(`总分 ${total}/36 · 多儿口语人格实验室`,256,1364);
 
   const dataUrl=canvas.toDataURL('image/png');
   g('posterImg').src=dataUrl;
