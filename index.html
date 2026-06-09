@@ -527,13 +527,13 @@ const DUO = {
   </div>
   <div class="poster-card fade-in">
     <span class="label">多儿已生成你的分享海报</span>
-    <div class="poster-tip">可长按海报保存图片，也可以点下载。海报会同步你的口语人格和推荐模块。</div>
+    <div class="poster-tip">可长按海报保存图片，也可以点下载。海报已按你的口语人格自动匹配。</div>
     <div class="poster-preview">
       <img id="posterImg" alt="口语人格分享海报">
     </div>
     <div class="poster-actions">
-      <button class="btn-poster" onclick="regeneratePoster()">重新生成海报</button>
-      <a class="btn-poster secondary" id="posterDownload" download="duo-oral-persona-poster.png">下载海报</a>
+      <button class="btn-poster" onclick="regeneratePoster()">刷新海报</button>
+      <a class="btn-poster secondary" id="posterDownload" download="duo-oral-persona-poster.jpg">下载海报</a>
     </div>
     <canvas id="posterCanvas" width="900" height="1400"></canvas>
   </div>
@@ -1066,204 +1066,42 @@ const POSTER_STYLES = {
   }
 };
 
+const POSTER_IMAGES = {
+  'ORAL-01': {
+    src:'posters/this-one-survival.jpg',
+    download:'duo-this-one-survival-poster.jpg'
+  },
+  'ORAL-02': {
+    src:'posters/sorry-escape.jpg',
+    download:'duo-sorry-escape-poster.jpg'
+  },
+  'ORAL-03': {
+    src:'posters/translator-support.jpg',
+    download:'duo-translator-support-poster.jpg'
+  },
+  'ORAL-04': {
+    src:'posters/brain-full-mouth-offline.jpg',
+    download:'duo-brain-full-mouth-offline-poster.jpg'
+  },
+  'ORAL-05': {
+    src:'posters/social-speaker.jpg',
+    download:'duo-social-speaker-poster.jpg'
+  }
+};
+
 function getPosterStyle(result){
   return POSTER_STYLES[result.personaCode] || POSTER_STYLES['ORAL-03'];
 }
 
-async function generatePoster(result,total){
-  const canvas=g('posterCanvas');
-  if(!canvas || !result) return;
-  const poster=getPosterStyle(result);
-  const ctx=canvas.getContext('2d');
-  const W=canvas.width,H=canvas.height;
-  ctx.clearRect(0,0,W,H);
-
-  const bg=ctx.createLinearGradient(0,0,0,H);
-  bg.addColorStop(0,poster.soft);
-  bg.addColorStop(0.52,'#FFFFFF');
-  bg.addColorStop(1,'#EAF8FF');
-  ctx.fillStyle=bg;
-  ctx.fillRect(0,0,W,H);
-
-  ctx.save();
-  ctx.globalAlpha=0.12;
-  ctx.fillStyle=poster.accent;
-  for(let i=-H;i<W;i+=78){
-    ctx.fillRect(i,0,28,H);
-  }
-  ctx.restore();
-
-  ctx.fillStyle='rgba(88,204,2,0.07)';
-  ctx.font='900 72px Arial, sans-serif';
-  ctx.fillText(poster.mode,58,136);
-
-  roundRect(ctx,52,62,W-104,H-76,42);
-  ctx.fillStyle='rgba(255,255,255,0.94)';
-  ctx.fill();
-  ctx.strokeStyle='#D7F3C4';
-  ctx.lineWidth=6;
-  ctx.stroke();
-
-  const rail=['#58CC02','#1CB0F6','#FF9600','#FF4B4B'];
-  let railX=52, railIndex=0;
-  while(railX<W-52){
-    ctx.fillStyle=rail[railIndex%rail.length];
-    ctx.fillRect(railX,62,Math.min(40,W-52-railX),18);
-    railX+=40;
-    railIndex++;
-  }
-
-  ctx.fillStyle='#58CC02';
-  roundRect(ctx,98,112,220,58,29);
-  ctx.fill();
-  ctx.fillStyle='#fff';
-  ctx.font='900 28px Arial, sans-serif';
-  ctx.fillText('Duolingo',150,151);
-  ctx.beginPath();
-  ctx.arc(124,141,17,0,Math.PI*2);
-  ctx.fill();
-  ctx.fillStyle='#58CC02';
-  ctx.beginPath(); ctx.arc(118,138,4,0,Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.arc(130,138,4,0,Math.PI*2); ctx.fill();
-
-  ctx.fillStyle='#3C3C3C';
-  ctx.font='900 40px Arial, sans-serif';
-  ctx.fillText('多儿出警',618,150);
-  ctx.fillStyle='#FF4B4B';
-  roundRect(ctx,792,120,34,34,10);
-  ctx.fill();
-
-  ctx.fillStyle=poster.accent;
-  roundRect(ctx,98,216,210,56,28);
-  ctx.fill();
-  ctx.fillStyle='#fff';
-  ctx.font='900 30px Arial, sans-serif';
-  ctx.fillText(result.personaCode,134,254);
-
-  ctx.fillStyle='#46A302';
-  ctx.font='900 32px Arial, sans-serif';
-  ctx.fillText('英语口语人格判决书',98,328);
-
-  ctx.fillStyle='#2F2F2F';
-  ctx.font='900 62px Arial, sans-serif';
-  let y=drawWrappedText(ctx,poster.name,98,408,470,72,2);
-
-  ctx.fillStyle=poster.accent;
-  ctx.font='900 38px Arial, sans-serif';
-  y=drawWrappedText(ctx,poster.headline,98,y+16,470,50,2);
-
-  ctx.fillStyle='rgba(60,60,60,0.08)';
-  ctx.font='900 58px Arial, sans-serif';
-  ctx.fillText(poster.stamp,98,606);
-
-  const duoSrc=DUO[result.duoExpr] || DUO.happy;
-  try{
-    const duo=await loadPosterImage(duoSrc);
-    ctx.save();
-    ctx.shadowColor='rgba(70,163,2,0.22)';
-    ctx.shadowBlur=28;
-    ctx.shadowOffsetY=18;
-    const box=270;
-    const ratio=Math.min(box/duo.width,box/duo.height);
-    const dw=duo.width*ratio,dh=duo.height*ratio;
-    ctx.drawImage(duo,560+(box-dw)/2,355+(box-dh)/2,dw,dh);
-    ctx.restore();
-  } catch(e) {}
-
-  roundRect(ctx,562,292,270,104,24);
-  ctx.fillStyle='#2F2F2F';
-  ctx.fill();
-  ctx.fillStyle='#FFFFFF';
-  ctx.font='900 24px Arial, sans-serif';
-  drawWrappedText(ctx,poster.bubble,586,330,222,32,2);
-  ctx.beginPath();
-  ctx.moveTo(636,396);
-  ctx.lineTo(664,396);
-  ctx.lineTo(646,426);
-  ctx.closePath();
-  ctx.fillStyle='#2F2F2F';
-  ctx.fill();
-
-  roundRect(ctx,98,658,704,246,30);
-  ctx.fillStyle=poster.panel;
-  ctx.fill();
-  ctx.strokeStyle='#D7F3C4';
-  ctx.lineWidth=4;
-  ctx.stroke();
-
-  ctx.fillStyle=poster.accent;
-  roundRect(ctx,126,692,172,44,22);
-  ctx.fill();
-  ctx.fillStyle='#fff';
-  ctx.font='900 24px Arial, sans-serif';
-  ctx.fillText(poster.chip,146,723);
-
-  ctx.fillStyle='#3C3C3C';
-  ctx.font='900 34px Arial, sans-serif';
-  ctx.fillText(`${result.level}｜${result.levelText}`,126,786);
-  ctx.fillStyle='#5F6F55';
-  ctx.font='800 27px Arial, sans-serif';
-  drawWrappedText(ctx,result.subtitle,126,838,620,42,3);
-
-  roundRect(ctx,98,934,704,208,30);
-  ctx.fillStyle='#FFFFFF';
-  ctx.fill();
-  ctx.strokeStyle='#E5E5E5';
-  ctx.lineWidth=4;
-  ctx.stroke();
-  ctx.fillStyle='#46A302';
-  ctx.font='900 32px Arial, sans-serif';
-  ctx.fillText(`多儿指定开练模块：${result.module}`,126,990);
-  ctx.fillStyle='#5F6F55';
-  ctx.font='800 27px Arial, sans-serif';
-  drawWrappedText(ctx,poster.route,126,1036,620,38,2);
-  let tagX=126, tagY=1110;
-  ctx.font='900 23px Arial, sans-serif';
-  result.moduleTags.forEach(tag=>{
-    const tw=ctx.measureText(tag).width+34;
-    ctx.fillStyle='#EFFFDB';
-    roundRect(ctx,tagX,tagY-28,tw,42,21);
-    ctx.fill();
-    ctx.fillStyle='#46A302';
-    ctx.fillText(tag,tagX+17,tagY);
-    tagX+=tw+14;
-  });
-
-  roundRect(ctx,98,1168,704,72,24);
-  ctx.fillStyle='#FFF8E0';
-  ctx.fill();
-  ctx.strokeStyle='#FFB800';
-  ctx.setLineDash([12,10]);
-  ctx.lineWidth=4;
-  ctx.stroke();
-  ctx.setLineDash([]);
-  ctx.fillStyle='#B8860B';
-  ctx.font='900 24px Arial, sans-serif';
-  ctx.fillText('多儿锐评',126,1212);
-  ctx.fillStyle='#3C3C3C';
-  ctx.font='800 23px Arial, sans-serif';
-  drawWrappedText(ctx,result.quote,238,1212,520,30,1);
-
-  roundRect(ctx,98,1248,704,130,28);
-  ctx.fillStyle='#F8FFF0';
-  ctx.fill();
-  ctx.strokeStyle='#D7F3C4';
-  ctx.lineWidth=4;
-  ctx.stroke();
-  await drawMiniCode(ctx,124,1258,108);
-  ctx.fillStyle='#46A302';
-  ctx.font='900 30px Arial, sans-serif';
-  ctx.fillText('来测测你的英语口语人格',256,1296);
-  ctx.fillStyle='#777';
-  ctx.font='800 22px Arial, sans-serif';
-  drawWrappedText(ctx,QUIZ_URL,256,1334,480,30,1);
-  ctx.fillStyle='#999';
-  ctx.font='700 20px Arial, sans-serif';
-  ctx.fillText(`总分 ${total}/36 · 多儿口语人格实验室`,256,1364);
-
-  const dataUrl=canvas.toDataURL('image/png');
-  g('posterImg').src=dataUrl;
-  g('posterDownload').href=dataUrl;
+async function generatePoster(result){
+  if(!result) return;
+  const poster=POSTER_IMAGES[result.personaCode] || POSTER_IMAGES['ORAL-03'];
+  const img=g('posterImg');
+  const download=g('posterDownload');
+  img.alt=`${result.type}分享海报`;
+  img.src=poster.src;
+  download.href=poster.src;
+  download.download=poster.download;
 }
 
 function regeneratePoster(){
